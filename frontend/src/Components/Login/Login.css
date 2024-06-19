@@ -1,0 +1,124 @@
+/* Login.css */
+.wholebody {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the login container */
+  max-height: 100vh;
+  height: 100vh;
+  background-color: #f0f0f0;
+  padding: 20px; /* Added padding for smaller screens */
+}
+
+.login-container {
+  background-color: #ffffff;
+  padding: 40px; /* Increased padding for a better look */
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 411px; 
+  height: auto; /* Allows height to adjust based on content */
+  text-align: center;
+  box-sizing: border-box; /* Ensures padding is included in width/height */
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+  color: black;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form div {
+  margin-bottom: 15px;
+}
+
+.login-form label {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: black;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box; /* Ensures padding doesn't affect the overall width */
+}
+
+.login-form button {
+  background-color: #0056b3;
+  color: white;
+  padding: 13px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 30px;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.login-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .login-container {
+    padding: 30px; /* Reduce padding on smaller screens */
+    border-radius: 25px; /* Adjust border radius for smaller screens */
+  }
+
+  .login-form input {
+    padding: 12px; /* Adjust padding on inputs for medium screens */
+    font-size: 15px; /* Adjust font size for medium screens */
+  }
+
+  .login-form button {
+    padding: 12px; /* Adjust padding on button for medium screens */
+    font-size: 15px; /* Adjust font size for medium screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .login-container {
+    padding: 20px; /* Reduce padding on smaller screens */
+    border-radius: 20px; /* Adjust border radius for smaller screens */
+  }
+
+  .login-form input {
+    padding: 10px; /* Reduce padding on inputs for smaller screens */
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+
+  .login-form button {
+    padding: 10px; /* Adjust padding on button for smaller screens */
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 15px; /* Further reduce padding on very small screens */
+    border-radius: 15px; /* Further adjust border radius for very small screens */
+  }
+
+  .login-form input {
+    padding: 8px; /* Further reduce padding on inputs for very small screens */
+    font-size: 13px; /* Further adjust font size for very small screens */
+  }
+
+  .login-form button {
+    padding: 8px; /* Further adjust padding on button for very small screens */
+    font-size: 13px; /* Further adjust font size for very small screens */
+  }
+}

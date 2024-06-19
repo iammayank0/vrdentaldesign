@@ -1,0 +1,175 @@
+.page-container{
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* @media (min-width: 1400px) {
+    .page-container{
+        max-width: 1700px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .page-container{
+        max-width: 1500px;
+    }
+}
+@media (min-width: 992px) {
+    .page-container {
+        max-width: 1300px;
+    }
+}
+@media (min-width: 768px) {
+    .page-container{
+        max-width: 900px;
+    }
+}
+@media (min-width: 576px) {
+    .page-container{
+        max-width: 650px;
+    }
+} */
+
+
+.about-page{
+    height: 31.25rem;
+    position: relative;
+    z-index: 1;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.about-page::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url(../../Assets//images/banner-shape.png);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.about-area{
+    padding-top: 3.125rem;
+    padding-bottom: 0;
+}
+
+.mission-vision-area{
+    margin-top: 0;
+    padding: 6.25rem;
+    position: relative;
+    z-index: 1;
+}
+
+.page-row {
+    display: flex;
+    gap: 20px; 
+}
+
+@media (min-width: 1200px) {
+    .page-row-content h2 {
+        font-size: 2rem;
+    }
+}
+
+.page-row-content {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 50px;
+    flex: 1; 
+}
+
+.page-row-content h2 {
+    margin-bottom: 0;
+    line-height: 1.3;
+    font-size: 42px;
+    font-weight: 400;
+    color: #1d3557;
+    font-family: "Anton", sans-serif;
+}
+
+.page-row-content p {
+    text-align: justify;
+    color: #6d7a8c;
+    line-height: 1.8;
+    margin-bottom: 12px;
+    font-size: 16.5px;
+    margin-top: 0;
+}
+
+.page-row-content p:last-child {
+    margin-bottom: 0;
+}
+
+
+@media (max-width: 859px) {
+    .page-row {
+        flex-direction: column; 
+    }
+    
+    .page-row-content {
+        margin-right: 0; 
+        margin-bottom: 20px; 
+    }
+
+    .page-row-content:not(:last-child) {
+        margin-bottom: 20px; 
+    }
+}
+
+@media (max-width: 859px) {
+    .mission-vision-area{
+        padding: 20px;
+    }
+}
+
+.who-we-are{
+    background-color: #043d72;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.who-we-are-content{
+    text-align: center !important;
+    align-items: center !important;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sub-title{
+    display: block;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.funfacts h2 {
+    margin-bottom: 0;
+    color: #ffffff;
+    line-height: 1.3;
+    font-size: 42px;
+    font-weight: 400;
+    font-family: "Anton", sans-serif;
+}
+
+.funfacts p{
+    color: white;
+    margin-top: 25px;
+    text-align: justify;
+    line-height: 1.8;
+}
+
+.funfacts p:last-child {
+    margin-bottom: 0;
+}
