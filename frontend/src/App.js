@@ -7,6 +7,7 @@ import Login from './Components/Login/Login';
 import './App.css';
 import AboutPage from './Components/Pages/AboutPage';
 import Gallery from './Components/Pages/Gallery-page/Gallery';
+import ServicePage from './Components/Pages/Service-page/ServicePage';
 
 
 const App = () => {
@@ -42,6 +43,11 @@ const App = () => {
         <Route
           exact path="/gallery-page"
           element={<Gallery /> }
+        />
+
+        <Route
+          exact path="/services-page"
+          element={<ServicePage /> }
         />
 
           
