@@ -1,9 +1,9 @@
 .banner-container{
-  height: 110vh;
+  height: 50rem;
 }
 .banner-section {
   position: relative;
-  height: 100vh; 
+  height: 50rem; 
   z-index: 1000;
   overflow: hidden;
   display: flex;
@@ -66,8 +66,7 @@
 .text {
   max-width: 640px;
   overflow: hidden;
-  padding-bottom: 20px;
-  margin-top: 30px;
+  margin-top: -10rem;
 }
 
 .slide-button button {
