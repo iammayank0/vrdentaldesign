@@ -1,0 +1,29 @@
+
+
+.terms-page{
+    margin-top: 8rem;
+    margin-bottom: 8rem;
+}
+
+@media (min-width: 1200px) {
+    .terms {
+        text-align: center;
+    }
+}
+
+.terms{
+    color: black;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+    border-radius: 5px;
+    padding: 50px 40px;
+}
+
+.terms p{
+    text-align: justify;
+    color: rgb(80, 0, 80);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+    background: transparent;
+    margin-bottom: 0.26cm;
+    line-height: 14.95px;
+}

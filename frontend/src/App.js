@@ -8,6 +8,7 @@ import AboutPage from './Components/Pages/AboutPage';
 import Gallery from './Components/Pages/Gallery-page/Gallery';
 import ContactPage from "./Components/Pages/ContactPage";
 import ServicePage from './Components/Pages/Service-page/ServicePage';
+import TermAndCondition from './Components/Pages/Terms-page/TermAndCondition';
 
 
 const App = () => {
@@ -53,6 +54,11 @@ const App = () => {
         <Route
           exact path="/contact-page"
           element={<ContactPage /> }
+        />
+
+        <Route
+          exact path="/term&condition-page"
+          element={<TermAndCondition /> }
         />
 
           
