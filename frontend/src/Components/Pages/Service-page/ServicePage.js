@@ -1,10 +1,12 @@
 import React from 'react';
 import "./ServicePage.css";
 import Navbar from '../../Navbar/Navbar';
+import Footer from '../../Footer/Footer'
 import { Link } from 'react-router-dom';
 
 import aboutBG from '../../../Assets/images/page-title-image/1.jpg';
 import { FaArrowRight } from 'react-icons/fa';
+
 import serviceimg1 from '../../../Assets/images/doctor-image/1.jpg';
 import serviceimg2 from '../../../Assets/images/doctor-image/2.jpg';
 import serviceimg3 from '../../../Assets/images/doctor-image/3.jpg';
@@ -18,127 +20,65 @@ import serviceimg10 from '../../../Assets/images/doctor-image/10.jpg';
 import serviceimg11 from '../../../Assets/images/doctor-image/11.jpg';
 import serviceimg12 from '../../../Assets/images/doctor-image/12.jpg';
 
+const services = [
+  { img: serviceimg1, title: 'VALPLAST FLEXIBLE' },
+  { img: serviceimg2, title: 'COSMETIC DENTISTRY' },
+  { img: serviceimg3, title: 'INLAY ONLAY' },
+  { img: serviceimg4, title: 'VENEER' },
+  { img: serviceimg5, title: 'SNAP ON SMILE' },
+  { img: serviceimg6, title: 'CUSTOM TRAY' },
+  { img: serviceimg7, title: 'DIGITAL DENTURE' },
+  { img: serviceimg8, title: 'MODEL CREATE' },
+  { img: serviceimg9, title: 'SURGICAL GUIDE' },
+  { img: serviceimg10, title: 'NIGHT-GUARD' },
+  { img: serviceimg11, title: 'SCREW-RETAIN-CROWN' },
+  { img: serviceimg12, title: 'CROWN & BRIDGE' },
+  { img: serviceimg11, title: 'CPD-RPD' }, // Duplicate image for demonstration
+];
 
 const ServicePage = () => {
   return (
     <>
-    <div className='page' style={{ backgroundImage: `url(${aboutBG})`}}>
+      <div className='page' style={{ backgroundImage: `url(${aboutBG})` }}>
         <Navbar />
-      <div className='d-table'>
-        <div className="d-table-cell">
+        <div className='d-table'>
+          <div className="d-table-cell">
             <div className="page-container">
-            <div className="page-title-content">
+              <div className="page-title-content">
                 <h2>SERVICES</h2>
                 <ul>
                   <li>
-                    <Link to="/*">Home</Link>
+                    <Link to="/">Home</Link>
                   </li>
                   <li>Services</li>
                 </ul>
+              </div>
             </div>
-            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <section className='services-page'>
+      <section className='services-page'>
         <div className="page-container">
-            <div className="service-row">
-                <div className="single-service">
-                    <div className="single-service-box">
-                        <img src={serviceimg1} alt="service-img" />
-                        <h3>VALPLAST FLEXIBLE</h3>
-                        <Link>Read More<FaArrowRight /></Link>
-                    </div>
+          <div className="service-row">
+            {services.map((service, index) => (
+              <div className="single-service" key={index}>
+                <div className="single-service-box">
+                  <img src={service.img} alt={`${service.title}-img`} />
+                  <h3>{service.title}</h3>
+                  <Link to={`/${service.title.toLowerCase().replace(/ /g, '-')}`}>
+                    Read More <FaArrowRight />
+                  </Link>
                 </div>
-                <div className="single-service">
-                    <div className="single-service-box">
-                        <img src={serviceimg2} alt="service-img" />
-                        <h3>COSMETIC DENTISTRY</h3>
-                        <Link>Read More<FaArrowRight /></Link>
-                    </div>
-                </div>
-                <div className="single-service">
-                    <div className="single-service-box">
-                        <img src={serviceimg3} alt="service-img" />
-                        <h3>INLAY ONLAY</h3>
-                        <Link>Read More<FaArrowRight /></Link>
-                    </div>
-                </div>
-                <div className="single-service">
-                    <div className="single-service-box">
-                        <img src={serviceimg4} alt="service-img" />
-                        <h3>VENEER</h3>
-                        <Link>Read More<FaArrowRight /></Link>
-                    </div>
-                </div>
-                <div className="single-service">
-                    <div className="single-service-box">
-                        <img src={serviceimg5} alt="service-img" />
-                        <h3>SNAP ON SMILE</h3>
-                        <Link>Read More<FaArrowRight /></Link>
-                    </div>
-                </div>
-                <div className="single-service">
-                    <div className="single-service-box">
-                        <img src={serviceimg6} alt="service-img" />
-                        <h3>CUSTOM TRAY</h3>
-                        <Link>Read More<FaArrowRight /></Link>
-                    </div>
-                </div>
-                <div className="single-service">
-                    <div className="single-service-box">
-                        <img src={serviceimg7} alt="service-img" />
-                        <h3>DIGITAL DENTURE</h3>
-                        <Link>Read More<FaArrowRight /></Link>
-                    </div>
-                </div>
-                <div className="single-service">
-                    <div className="single-service-box">
-                        <img src={serviceimg8} alt="service-img" />
-                        <h3>MODEL CREATE</h3>
-                        <Link>Read More<FaArrowRight /></Link>
-                    </div>
-                </div>
-                <div className="single-service">
-                    <div className="single-service-box">
-                        <img src={serviceimg9} alt="service-img" />
-                        <h3>SURGICAL GUIDE</h3>
-                        <Link>Read More<FaArrowRight /></Link>
-                    </div>
-                </div>
-                <div className="single-service">
-                    <div className="single-service-box">
-                        <img src={serviceimg10} alt="service-img" />
-                        <h3>NIGHT-GUARD</h3>
-                        <Link>Read More<FaArrowRight /></Link>
-                    </div>
-                </div>
-                <div className="single-service">
-                    <div className="single-service-box">
-                        <img src={serviceimg11} alt="service-img" />
-                        <h3>SCREW-RETAIN-CROWN</h3>
-                        <Link>Read More<FaArrowRight /></Link>
-                    </div>
-                </div>
-                <div className="single-service">
-                    <div className="single-service-box">
-                        <img src={serviceimg12} alt="service-img" />
-                        <h3>CROWN & BRIDGE</h3>
-                        <Link>Read More<FaArrowRight /></Link>
-                    </div>
-                </div>
-                <div className="single-service">
-                    <div className="single-service-box">
-                        <img src={serviceimg11} alt="service-img" />
-                        <h3>CPD-RPD</h3>
-                        <Link>Read More<FaArrowRight /></Link>
-                    </div>
-                </div>
-            </div>
+              </div>
+            ))}
+          </div>
         </div>
-    </section>
+      </section>
+      <section className='service-footer'>
+        <Footer />
+      </section>
     </>
-  )
-}
+  );
+};
 
-export default ServicePage
+export default ServicePage;
