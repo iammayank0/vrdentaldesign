@@ -33,7 +33,7 @@ const services = [
   { img: serviceimg10, title: 'NIGHT-GUARD' },
   { img: serviceimg11, title: 'SCREW-RETAIN-CROWN' },
   { img: serviceimg12, title: 'CROWN & BRIDGE' },
-  { img: serviceimg11, title: 'CPD-RPD' }, // Duplicate image for demonstration
+  { img: serviceimg11, title: 'CPD-RPD' }, 
 ];
 
 const ServicePage = () => {
@@ -65,7 +65,7 @@ const ServicePage = () => {
                 <div className="single-service-box">
                   <img src={service.img} alt={`${service.title}-img`} />
                   <h3>{service.title}</h3>
-                  <Link to={`/${service.title.toLowerCase().replace(/ /g, '-')}`}>
+                  <Link to={`/service-detail/${service.title.toLowerCase().replace(/ /g, '-')}`}>
                     Read More <FaArrowRight />
                   </Link>
                 </div>
