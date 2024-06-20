@@ -48,9 +48,8 @@ const Doctor = () => {
                   </div>
                   <div className="doctor-content">
                     <h3>{doctor.title}</h3>
-                    <span>{doctor.time}</span> {/* Use the 'time' property from the fetched data */}
+                    <span>{doctor.time}</span> 
                     <ul className="social-icon">
-                      {/* Render social links */}
                       <li>
                         <a href={doctor.socialLinks.facebook}>
                           <FaFacebook />
