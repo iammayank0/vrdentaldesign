@@ -6,6 +6,9 @@ import Login from './Components/Login/Login';
 
 import './App.css';
 import AboutPage from './Components/Pages/AboutPage';
+import ServicePage from './Components/Pages/ServicePage';
+import TermCondition from './Components/Pages/TermCondition';
+import ContactPage from './Components/Pages/ContactPage'
 
 
 const App = () => {
@@ -32,9 +35,22 @@ const App = () => {
           element={<Main />}
         />
 
+      
         <Route
           exact path="/about-page"
           element={<AboutPage />}
+        />
+       <Route
+          exact path="/contact-page"
+          element={<ContactPage />}
+        />
+       <Route
+          exact path="/service-page"
+          element={<ServicePage />}
+        />
+        <Route
+        exact path="/term&condition-page"
+        element={<TermCondition/>}
         />
 
           

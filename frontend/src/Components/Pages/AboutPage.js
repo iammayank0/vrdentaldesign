@@ -2,8 +2,6 @@ import React from 'react';
 import Navbar from '../Navbar/Navbar'
 import './Page.css';
 import { Link } from 'react-router-dom';
-
-
 import aboutBG from '../../Assets/images/page-title-image/1.jpg';
 import About from '../Main/Home-Page/About';
 import WhyChooseUs from '../Main/Home-Page/WhyChooseUs';
