@@ -6,14 +6,9 @@ import Login from './Components/Login/Login';
 import './App.css';
 import AboutPage from './Components/Pages/AboutPage';
 import Gallery from './Components/Pages/Gallery-page/Gallery';
-<<<<<<< HEAD
 import ContactPage from "./Components/Pages/ContactPage";
-import ServicePage from './Components/Pages/ServicePage';
-import TermCondition from './Components/Pages/TermCondition';
-=======
 import ServicePage from './Components/Pages/Service-page/ServicePage';
 
->>>>>>> 3d6b0eb3860bb787648cfdda524eba5aceee2707
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -53,6 +48,11 @@ const App = () => {
         <Route
           exact path="/services-page"
           element={<ServicePage /> }
+        />
+
+        <Route
+          exact path="/contact-page"
+          element={<ContactPage /> }
         />
 
           

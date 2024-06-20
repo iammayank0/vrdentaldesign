@@ -5,7 +5,6 @@ import { CiUser, CiMail, CiPhone } from 'react-icons/ci';
 import { RiMessage2Line } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
-import About from '../Main/Home-Page/About';
 import aboutBG from '../../Assets/images/page-title-image/1.jpg';
 import { MdOutlineDesignServices } from "react-icons/md";
 import Footer from '../Footer/Footer';
@@ -111,7 +110,8 @@ const Enquiry = () => {
                    style={{border: "0"}} 
                    allowfullscreen=""
                     loading="lazy" 
-                   referrerpolicy="no-referrer-when-downgrade">
+                   referrerpolicy="no-referrer-when-downgrade"
+                   title='map'>
                     </iframe>
                     </div>
             </div>
