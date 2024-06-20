@@ -12,7 +12,7 @@ import Footer from "../Footer/Footer"
 const AboutPage = () => {
   return (
     <>
-    <div className='about-page' style={{ backgroundImage: `url(${aboutBG})`}}>
+    <div className='page' style={{ backgroundImage: `url(${aboutBG})`}}>
         <Navbar />
       <div className='d-table'>
         <div className="d-table-cell">
