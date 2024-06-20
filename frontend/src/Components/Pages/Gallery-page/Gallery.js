@@ -1,6 +1,8 @@
 import React from 'react';
 import Navbar from '../../Navbar/Navbar';
+import Footer from "../../Footer/Footer"
 import { Link } from 'react-router-dom';
+import "./Gallery.css"
 
 import aboutBG from '../../../Assets/images/page-title-image/1.jpg';
 import galleryImg1 from '../../../Assets/images/doctor-image/1.jpg';
@@ -63,6 +65,9 @@ const Gallery = () => {
             ))}
           </div>
         </div>
+      </section>
+      <section className='gallery-footer'>
+        <Footer />
       </section>
     </>
   );
