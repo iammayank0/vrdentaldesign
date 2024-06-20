@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import AdminPanel from './Components/Adminpanel/AdminPanel';
 import Main from './Components/Main/Main';
 import Login from './Components/Login/Login';
-
 import './App.css';
 import AboutPage from './Components/Pages/AboutPage';
 import Gallery from './Components/Pages/Gallery-page/Gallery';
+import ContactPage from "./Components/Pages/ContactPage";
 import ServicePage from './Components/Pages/Service-page/ServicePage';
 
 
@@ -48,6 +48,11 @@ const App = () => {
         <Route
           exact path="/services-page"
           element={<ServicePage /> }
+        />
+
+        <Route
+          exact path="/contact-page"
+          element={<ContactPage /> }
         />
 
           
