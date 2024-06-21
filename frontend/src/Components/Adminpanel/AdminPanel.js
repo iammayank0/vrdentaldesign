@@ -9,7 +9,6 @@ import DoctorPanel from './Subpanel/DoctorPanel';
 import CTAPanel from './Subpanel/CTApanel';
 import PartnerPanel from './Subpanel/PartnerPanel';
 import BlogPanel from './Subpanel/BlogPanel';
-import FooterPanel from './Subpanel/FooterPanel';
 
 const AdminPanel = () => {
   return (
@@ -24,7 +23,6 @@ const AdminPanel = () => {
       <CTAPanel />
       <PartnerPanel />
       <BlogPanel />
-      <FooterPanel />
     </div>
   )
 }

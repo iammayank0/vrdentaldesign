@@ -15,6 +15,7 @@ const ctaRoutes = require('./routes/cta');
 const PartnerRoutes = require('./routes/partner');
 const BlogRoutes = require('./routes/blog');
 const FooterRoutes = require('./routes/footer');
+const GalleryRoutes = require('./routes/Gallery');
 
 const app = express();
 const PORT = 5000;
@@ -41,6 +42,7 @@ app.use('/api', ctaRoutes);
 app.use('/api', PartnerRoutes);
 app.use('/api', BlogRoutes);
 app.use('/api', FooterRoutes);
+app.use('/api', GalleryRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
