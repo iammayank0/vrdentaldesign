@@ -4,7 +4,7 @@ import AdminPanel from './Components/Adminpanel/AdminPanel';
 import Main from './Components/Main/Main';
 import Login from './Components/Login/Login';
 import './App.css';
-import AboutPage from './Components/Pages/AboutPage';
+import AboutPage from './Components/Pages/About-page/AboutPage';
 import Gallery from './Components/Pages/Gallery-page/Gallery';
 import ContactPage from "./Components/Pages/ContactPage";
 import ServicePage from './Components/Pages/Service-page/ServicePage';

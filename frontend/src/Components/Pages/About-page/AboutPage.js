@@ -1,15 +1,15 @@
 import React from 'react';
-import Navbar from '../Navbar/Navbar'
-import './Page.css';
+import Navbar from '../../Navbar/Navbar'
+import './AboutPage.css';
 import { Link } from 'react-router-dom';
 
 
-import aboutBG from '../../Assets/images/page-title-image/1.jpg';
-import About from '../Main/Home-Page/About';
-import WhyChooseUs from '../Main/Home-Page/WhyChooseUs';
-import Doctor from '../Main/Home-Page/Doctor';
-import CTA from '../Main/Home-Page/CTA';
-import Footer from "../Footer/Footer"
+import aboutBG from '../../../Assets/images/page-title-image/1.jpg';
+import About from '../../Main/Home-Page/About';
+import WhyChooseUs from '../../Main/Home-Page/WhyChooseUs';
+import Doctor from '../../Main/Home-Page/Doctor';
+import CTA from '../../Main/Home-Page/CTA';
+import Footer from "../../Footer/Footer"
 
 const AboutPage = () => {
   return (
