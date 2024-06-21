@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
-const { GalleryContent, GalleryBgContent } = require('../models/GalleryImages');
-const cloudinary = require('../config/cloudinaryConfig');
+const { GalleryContent, GalleryBgContent } = require('../../models/Page/GalleryImages');
+const cloudinary = require('../../Config/CloudinaryConfig');
 const fs = require('fs');
 
 const router = express.Router();

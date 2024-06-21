@@ -16,7 +16,7 @@ const AboutUsContentSchema = new mongoose.Schema({
 });
 
   const BackgroundContent = mongoose.model('BackgroundContent', BackgroundSchema);
-  const AboutContent = mongoose.model('AboutContent', ContentSchema);
+  const AboutPageContent = mongoose.model('AboutPageContent', ContentSchema);
   const AboutUsContent = mongoose.model('AboutUsContent', AboutUsContentSchema);
   
-  module.exports = { BackgroundContent, AboutContent, AboutUsContent };
+  module.exports = { BackgroundContent, AboutPageContent, AboutUsContent };
