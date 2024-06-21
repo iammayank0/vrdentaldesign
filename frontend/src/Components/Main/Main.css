@@ -535,6 +535,7 @@ input[type="text"], input[type="email"], input[type="number"] {
   .about-content {
     padding-left: 0;
     text-align: center;/* Your styles for about-content here */
+    padding: 20px 
   }
 
   .content-list {
