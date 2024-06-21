@@ -5,8 +5,10 @@ const BackgroundSchema = new mongoose.Schema({
 });
 
 const ContentSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    description: { type: String, required: true }
+    title1: { type: String, required: true },
+    description1: { type: String, required: true },
+    title2: { type: String, required: true },
+    description2: { type: String, required: true }
 });
 
 const AboutUsContentSchema = new mongoose.Schema({

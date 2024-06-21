@@ -17,6 +17,40 @@ const upload = multer({
     },
 });
 
+// Fetch Background Content
+router.get('/backgroundcontent', async (req, res) => {
+    try {
+        const backgroundContent = await BackgroundContent.find();
+        res.status(200).json(backgroundContent);
+    } catch (error) {
+        console.error('Failed to fetch Background Content:', error);
+        res.status(500).json({ message: 'Failed to fetch Background Content', error: error.message });
+    }
+});
+
+// Fetch About Page Content
+router.get('/aboutpagecontent', async (req, res) => {
+    try {
+        const aboutPageContent = await AboutPageContent.find();
+        res.status(200).json(aboutPageContent);
+    } catch (error) {
+        console.error('Failed to fetch About Page Content:', error);
+        res.status(500).json({ message: 'Failed to fetch About Page Content', error: error.message });
+    }
+});
+
+// Fetch About Us Content
+router.get('/aboutuscontent', async (req, res) => {
+    try {
+        const aboutUsContent = await AboutUsContent.find();
+        res.status(200).json(aboutUsContent);
+    } catch (error) {
+        console.error('Failed to fetch About Us Content:', error);
+        res.status(500).json({ message: 'Failed to fetch About Us Content', error: error.message });
+    }
+});
+
+
 // ADD gallery Background
 router.post('/aboutbg/upload', upload.single('BackgroundImage'), async (req, res) => {
     try {
@@ -52,25 +86,6 @@ router.post('/aboutbg/upload', upload.single('BackgroundImage'), async (req, res
     }
 });
 
-// Create Blog Text
-router.post('/about-page/content', async (req, res) => {
-    try {
-      const newBlogText = new BlogText({
-        title: req.body.title,
-        heading: req.body.heading,
-        description: req.body.description
-      });
-  
-      // Save to database
-      await newBlogText.save();
-  
-      res.status(201).json(newBlogText);
-    } catch (error) {
-      console.error('Failed to create blog text:', error);
-      res.status(500).json({ message: 'Failed to create blog text', error: error.message });
-    }
-  });
-
 // EDIT gallery Background
 router.put('/aboutbg/:id', upload.fields([{ name: 'BackgroundImage', maxCount: 1 }]), async (req, res) => {
     const { id } = req.params;
@@ -98,5 +113,105 @@ router.put('/aboutbg/:id', upload.fields([{ name: 'BackgroundImage', maxCount: 1
       res.status(500).json({ message: 'Error updating about background', error: error.message });
     }
   });
+
+  // Create About Page Content
+router.post('/aboutpagecontent', upload.none(), async (req, res) => {
+    const { title1, description1, title2, description2 } = req.body;
+
+    if (!title1 || !description1 || !title2 || !description2) {
+        return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    try {
+        const newAboutPageContent = new AboutPageContent({
+            title1,
+            description1,
+            title2,
+            description2
+        });
+
+        await newAboutPageContent.save();
+
+        res.status(201).json(newAboutPageContent);
+    } catch (error) {
+        console.error('Failed to create About Page Content:', error);
+        res.status(500).json({ message: 'Failed to create About Page Content', error: error.message });
+    }
+});
+
+// Create About Us Content
+router.post('/aboutuscontent', upload.none(), async (req, res) => {
+    const { title, heading, description } = req.body;
+
+    if (!title || !heading || !description) {
+        return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    try {
+        const newAboutUsContent = new AboutUsContent({
+            title,
+            heading,
+            description
+        });
+
+        await newAboutUsContent.save();
+
+        res.status(201).json(newAboutUsContent);
+    } catch (error) {
+        console.error('Failed to create About Us Content:', error);
+        res.status(500).json({ message: 'Failed to create About Us Content', error: error.message });
+    }
+});
+
+// Edit About Page Content
+router.put('/aboutpagecontent/:id', upload.none(), async (req, res) => {
+    const { id } = req.params;
+    const { title1, description1, title2, description2 } = req.body;
+
+    const updates = {};
+
+    if (title1 !== undefined) updates.title1 = title1;
+    if (description1 !== undefined) updates.description1 = description1;
+    if (title2 !== undefined) updates.title2 = title2;
+    if (description2 !== undefined) updates.description2 = description2;
+
+    try {
+        const updatedAboutPageContent = await AboutPageContent.findByIdAndUpdate(id, updates, { new: true });
+
+        if (!updatedAboutPageContent) {
+            return res.status(404).json({ message: 'About Page Content not found' });
+        }
+
+        res.json(updatedAboutPageContent);
+    } catch (error) {
+        console.error('Failed to update About Page Content:', error);
+        res.status(500).json({ message: 'Failed to update About Page Content', error: error.message });
+    }
+});
+
+// Edit About Us Content
+router.put('/aboutuscontent/:id', upload.none(), async (req, res) => {
+    const { id } = req.params;
+    const { title, heading, description } = req.body;
+
+    const updates = {};
+
+    if (title !== undefined) updates.title = title;
+    if (heading !== undefined) updates.heading = heading;
+    if (description !== undefined) updates.description = description;
+
+    try {
+        const updatedAboutUsContent = await AboutUsContent.findByIdAndUpdate(id, updates, { new: true });
+
+        if (!updatedAboutUsContent) {
+            return res.status(404).json({ message: 'About Us Content not found' });
+        }
+
+        res.json(updatedAboutUsContent);
+    } catch (error) {
+        console.error('Failed to update About Us Content:', error);
+        res.status(500).json({ message: 'Failed to update About Us Content', error: error.message });
+    }
+});
 
 module.exports = router;
