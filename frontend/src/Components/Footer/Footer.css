@@ -35,10 +35,15 @@
   @media (max-width: 768px) {
     .single-footer-widget {
       flex: 0 0 100%; 
+      padding:20px;
+    }
+    .footer-area{
+      padding:20px;
+
     }
   }
 
-.Description p {
+.Description p {  
     color: #ebe7e7;
     font-size: 15px;
     margin-bottom: 0;
