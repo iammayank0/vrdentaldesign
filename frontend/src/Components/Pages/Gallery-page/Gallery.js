@@ -1,42 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Navbar from '../../Navbar/Navbar';
-import Footer from "../../Footer/Footer"
+import Footer from "../../Footer/Footer";
 import { Link } from 'react-router-dom';
-import "./Gallery.css"
-
-import aboutBG from '../../../Assets/images/page-title-image/1.jpg';
-import galleryImg1 from '../../../Assets/images/doctor-image/1.jpg';
-import galleryImg2 from '../../../Assets/images/doctor-image/2.jpg';
-import galleryImg3 from '../../../Assets/images/doctor-image/3.jpg';
-// Add more imports as needed
-
-const imageUrls = [
-  galleryImg1,
-  galleryImg2,
-  galleryImg3,
-  galleryImg1,
-  galleryImg2,
-  galleryImg3,
-  galleryImg1,
-  galleryImg2,
-  galleryImg3,
-  galleryImg1,
-  galleryImg2,
-  galleryImg3,
-  galleryImg1,
-  galleryImg2,
-  galleryImg3,
-  galleryImg1,
-  galleryImg2,
-  galleryImg3,
-  galleryImg1,
-  galleryImg2,
-];
+import "./Gallery.css";
 
 const Gallery = () => {
+  const [images, setImages] = useState([]);
+  const [backgroundImage, setBackgroundImage] = useState('');
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/galleryimg');
+        setImages(response.data); // Assuming response.data is an array of image objects
+      } catch (error) {
+        console.error('Failed to fetch gallery images:', error);
+      }
+    };
+
+    const fetchBackgroundImage = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/gallerybg');
+        // Assuming response.data is an array and taking the first element for simplicity
+        setBackgroundImage(response.data.length > 0 ? response.data[0].BackgroundImage : '');
+      } catch (error) {
+        console.error('Failed to fetch gallery background image:', error);
+      }
+    };
+
+    fetchImages();
+    fetchBackgroundImage();
+  }, []);
+
   return (
     <>
-      <div className='page' style={{ backgroundImage: `url(${aboutBG})` }}>
+      <div className='page' style={{ backgroundImage: `url(${backgroundImage})` }}>
         <Navbar />
         <div className='d-table'>
           <div className="d-table-cell">
@@ -58,9 +57,9 @@ const Gallery = () => {
         <div className="page-container">
           <h1 className='page-title'>Image Gallery</h1>
           <div className="gallery-row">
-            {imageUrls.map((imgSrc, index) => (
+            {images.map((image, index) => (
               <div className="single-image" key={index}>
-                <img src={imgSrc} alt={`gallery-img-${index}`} />
+                <img src={image.GalleryImage} alt={`gallery-img-${index}`} />
               </div>
             ))}
           </div>
