@@ -10,7 +10,7 @@ import { FaArrowRight } from 'react-icons/fa';
 
 const ServicePage = () => {
   const [backgroundImage, setBackgroundImage] = useState('');
-  const [doctors, setDoctors] = useState([]);
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
     const fetchBackgroundImage = async () => {
@@ -22,17 +22,17 @@ const ServicePage = () => {
       }
     };
 
-    const fetchDoctors = async () => {
+    const fetchServices = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/doctors'); 
-        setDoctors(response.data);
+        const response = await axios.get('http://localhost:5000/api/single-services'); 
+        setServices(response.data);
       } catch (error) {
-        console.error('Error fetching doctors:', error);
+        console.error('Error fetching services:', error);
       }
     };
 
     fetchBackgroundImage();
-    fetchDoctors();
+    fetchServices();
   }, []);
 
   return (
@@ -58,12 +58,12 @@ const ServicePage = () => {
       <section className='services-page'>
         <div className="page-container">
           <div className="service-row">
-            {doctors.map((doctor, index) => (
+            {services.map((services, index) => (
               <div className="single-service" key={index}>
                 <div className="single-service-box">
-                  <img src={doctor.img} alt={`${doctor.title}-img`} />
-                  <h3>{doctor.title}</h3>
-                  <Link to={`/service-detail/${doctor.title.toLowerCase().replace(/ /g, '-')}`}>
+                  <img src={services.image} alt={`${services.title}-img`} />
+                  <h3>{services.title}</h3>
+                  <Link to={`/service-detail/${services.title.toLowerCase().replace(/ /g, '-')}`}>
                     Read More <FaArrowRight />
                   </Link>
                 </div>

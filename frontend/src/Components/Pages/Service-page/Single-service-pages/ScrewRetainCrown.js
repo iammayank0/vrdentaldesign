@@ -7,7 +7,9 @@ import bgimg from '../../../../Assets/images/why-choose-img3.jpg';
 import { FaArrowRight } from "react-icons/fa";
 import Footer from "../../../Footer/Footer";
 
-const ValplastFlexible = () => {
+
+const ScrewRetainCrown = () => {
+
   const [backgroundImage, setBackgroundImage] = useState('');
   const [services, setServices] = useState([]);
   const [service, setservice] = useState(null);
@@ -28,7 +30,7 @@ const ValplastFlexible = () => {
         setServices(response.data);
         // Set the second service separately for use in rendering
         if (response.data.length > 12) {
-          setservice(response.data[0]);
+          setservice(response.data[10]);
         }
       } catch (error) {
         console.error('Error fetching services:', error);
@@ -109,7 +111,7 @@ const ValplastFlexible = () => {
         <Footer />
       </section>
     </>
-  );
-};
+  )
+}
 
-export default ValplastFlexible;
+export default ScrewRetainCrown

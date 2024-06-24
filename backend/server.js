@@ -18,6 +18,7 @@ const FooterRoutes = require('./routes/footer');
 const GalleryRoutes = require('./routes/page/Gallery');
 const AboutPageRoutes = require('./routes/page/aboutpage');
 const ServicePageRoutes = require('./routes/page/Service-page');
+const SingleServiceRoutes = require('./routes/page/Single-service');
 
 const app = express();
 const PORT = 5000;
@@ -47,6 +48,7 @@ app.use('/api', FooterRoutes);
 app.use('/api', GalleryRoutes);
 app.use('/api', AboutPageRoutes);
 app.use('/api', ServicePageRoutes);
+app.use('/api', SingleServiceRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

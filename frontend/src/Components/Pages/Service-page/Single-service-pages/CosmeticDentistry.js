@@ -7,7 +7,7 @@ import bgimg from '../../../../Assets/images/why-choose-img3.jpg';
 import { FaArrowRight } from "react-icons/fa";
 import Footer from "../../../Footer/Footer";
 
-const ValplastFlexible = () => {
+const CosmeticDentistry = () => {
   const [backgroundImage, setBackgroundImage] = useState('');
   const [services, setServices] = useState([]);
   const [service, setservice] = useState(null);
@@ -27,8 +27,8 @@ const ValplastFlexible = () => {
         const response = await axios.get('http://localhost:5000/api/single-services'); 
         setServices(response.data);
         // Set the second service separately for use in rendering
-        if (response.data.length > 12) {
-          setservice(response.data[0]);
+        if (response.data.length > 1) {
+          setservice(response.data[1]);
         }
       } catch (error) {
         console.error('Error fetching services:', error);
@@ -109,7 +109,7 @@ const ValplastFlexible = () => {
         <Footer />
       </section>
     </>
-  );
-};
+  )
+}
 
-export default ValplastFlexible;
+export default CosmeticDentistry;
