@@ -61,7 +61,7 @@ const ValplastFlexible = () => {
       </div>
       <section className="single-service-detail">
         <div className="page-container">
-          <div className="service-row">
+          <div className="single-service-row">
             <div className="services-button">
               <aside className="widget-area">
                 <section className="services-list">
