@@ -433,7 +433,7 @@ input[type="text"], input[type="email"], input[type="number"] {
   color: #df3946;
   margin-bottom: 8px;
   position: relative;
-  z-index: 1;
+  z-index: 0;
   font-weight: 700;
   font-size: 24px;
   padding-top: 20px;
@@ -652,7 +652,7 @@ input[type="text"], input[type="email"], input[type="number"] {
   color: #df3946;
   margin-bottom: 8px;
   position: relative;
-  z-index: 1;
+  z-index: 0;
   font-weight: 700;
   font-size: 14px;
 }
@@ -822,7 +822,7 @@ input[type="text"], input[type="email"], input[type="number"] {
   color: #ffffff;
   margin-bottom: 10px;
   position: relative;
-  z-index: 1;
+  z-index: 0;
   font-weight: 700;
   font-size: 14px;
 }
@@ -914,7 +914,7 @@ input[type="text"], input[type="email"], input[type="number"] {
   color: #df3946;
   margin-bottom: 12px;
   position: relative;
-  z-index: 1;
+  z-index: 0;
   font-weight: 700;
   font-size: 24px;
 }
