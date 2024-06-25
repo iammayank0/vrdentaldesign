@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Navbar.css';
 import { FaPhone } from 'react-icons/fa';
 import { SiMinutemailer } from 'react-icons/si';
@@ -21,26 +21,30 @@ const Navbar = () => {
   const [logoUrl, setLogoUrl] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isSticky, setIsSticky] = useState(false);
+
+  const navbarRef = useRef(null);
+  const placeholderRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const navbarItemsResponse = await fetch('http://localhost:5000/api/navbar');
+        const [navbarItemsResponse, contactInfoResponse, socialLinksResponse, logoResponse] = await Promise.all([
+          fetch('http://localhost:5000/api/navbar'),
+          fetch('http://localhost:5000/api/contact-info'),
+          fetch('http://localhost:5000/api/social-links'),
+          fetch('http://localhost:5000/api/logo')
+        ]);
+
         const navbarItemsData = await navbarItemsResponse.json();
-
-        const contactInfoResponse = await fetch('http://localhost:5000/api/contact-info');
         const contactInfoData = await contactInfoResponse.json();
-
-        const socialLinksResponse = await fetch('http://localhost:5000/api/social-links');
         const socialLinksData = await socialLinksResponse.json();
-
-        const logoResponse = await fetch('http://localhost:5000/api/logo');
         const logoData = await logoResponse.json();
 
         setNavbarItems(navbarItemsData);
         setContactInfo(contactInfoData);
         setSocialLinks(socialLinksData);
-        setLogoUrl(logoData.logoUrl); 
+        setLogoUrl(logoData.logoUrl);
       } catch (error) {
         console.error('Error fetching data:', error);
         setError('Error loading data');
@@ -50,6 +54,32 @@ const Navbar = () => {
     };
 
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (navbarRef.current) {
+        const sticky = navbarRef.current.offsetTop;
+        if (window.pageYOffset > sticky) {
+          setIsSticky(true);
+          if (placeholderRef.current) {
+            placeholderRef.current.style.height = `${navbarRef.current.offsetHeight}px`;
+          }
+        } else {
+          setIsSticky(false);
+          if (placeholderRef.current) {
+            placeholderRef.current.style.height = '0px';
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   const handleMenuToggle = () => {
@@ -75,14 +105,15 @@ const Navbar = () => {
           {socialLinks.map((link, index) => {
             const IconComponent = iconMap[link.icon];
             return (
-              <a key={index} href={link.url} target="_blank" rel="noopener noreferrer">
+              <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" title={link.icon}>
                 <IconComponent className='icon' />
               </a>
             );
           })}
         </div>
       </div>
-      <nav className='main-nav'>
+      <div ref={placeholderRef} className="navbar-placeholder"></div>
+      <nav className={`main-nav ${isSticky ? 'sticky' : ''}`} ref={navbarRef} id='navbar'>
         <div className="logo">
           <img src={logoUrl} alt="logo" />
         </div>
@@ -93,9 +124,9 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
-        <div className='menu-icons' onClick={handleMenuToggle}>
+        <button className='menu-icons' onClick={handleMenuToggle} aria-label="Toggle menu">
           {menuOpen ? <IoClose /> : <IoMenuSharp />}
-        </div>
+        </button>
       </nav>
       {menuOpen && (
         <div className="dropdown-menu">
