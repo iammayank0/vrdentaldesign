@@ -102,7 +102,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #3f41bff0;
+  background-color: #1d3557;
   color: #ffffff;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
@@ -284,7 +284,8 @@ input[type="text"], input[type="email"], input[type="number"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #c03535e2;
+  background-color: #df3946;
+  box-shadow: 0px 5px 28.5px 1.5px rgba(254, 35, 9, 0.2) !important;
   color: #ffffff;
   border: none;
   cursor: pointer;
@@ -302,18 +303,19 @@ input[type="text"], input[type="email"], input[type="number"] {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #3f41bff0;
+  background-color: #1d3557;
   color: #ffffff;
 }
 
 .enquiry-button button:hover {
-  background-color: #3914f6;
+  background-color: #1d3557;
   color: rgb(255, 255, 255);
+  box-shadow: 0px 5px 28.5px 1.5px rgba(254, 35, 9, 0.2) !important
 }
 
 .enquiry-button button:hover .icon--circle {
   background-color: #f8f6fb;
-  color: #4d08ed;
+  color: #1d3557;
 }
 
 .content h2{
@@ -433,7 +435,7 @@ input[type="text"], input[type="email"], input[type="number"] {
   position: relative;
   z-index: 1;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 24px;
   padding-top: 20px;
 }
 
@@ -469,6 +471,7 @@ input[type="text"], input[type="email"], input[type="number"] {
 
 .signature-content{
   padding-top: 20px;
+  padding-bottom: 70px;
 }
 
 /* .sign-img img{
@@ -681,7 +684,8 @@ input[type="text"], input[type="email"], input[type="number"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #c03535e2;
+  box-shadow: 0px 5px 28.5px 1.5px rgba(254, 35, 9, 0.2) !important;
+  background-color: #df3946;
   color: #ffffff;
   border: none;
   cursor: pointer;
@@ -692,13 +696,13 @@ input[type="text"], input[type="email"], input[type="number"] {
 }
 
 .learnMore-button button:hover {
-  background-color: #3914f6;
+  background-color: #1d3557;
   color: rgb(255, 255, 255);
 }
 
 .learnMore-button button:hover .icon-circle {
   background-color: #f8f6fb;
-  color: #4d08ed;
+  color: #1d3557;
 }
 
 .service-img {
@@ -734,13 +738,13 @@ input[type="text"], input[type="email"], input[type="number"] {
 
 .read-more-btn {
   display: inline-block;
-  color: #007bff;
+  color: #1d3557;
   text-decoration: none;
   transition: color 0.3s;
 }
 
 .read-more-btn:hover {
-  color: #0056b3;
+  color: #1d3557;
 }
 
 .arrow-btn {
@@ -912,7 +916,7 @@ input[type="text"], input[type="email"], input[type="number"] {
   position: relative;
   z-index: 1;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 24px;
 }
 .section-title h2 {
   margin-bottom: 0;
@@ -976,6 +980,10 @@ input[type="text"], input[type="email"], input[type="number"] {
   margin-left: 5px;
   margin-right: 5px;
 }
+
+.social-icon li a{
+  color:#bebaba;
+} 
 .slides-dot {
   text-align: center;
   margin-top: 20px;
@@ -1225,7 +1233,7 @@ input[type="text"], input[type="email"], input[type="number"] {
 .blog-read-more-btn {
   display: inline-flex;
   align-items: center;
-  color: #007bff; /* Adjust color as per your design */
+  color: #1d3557; /* Adjust color as per your design */
   text-decoration: none;
 }
 
