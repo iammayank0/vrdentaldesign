@@ -7,8 +7,8 @@ const Doctor = () => {
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [doctorsPerPage, setDoctorsPerPage] = useState(0); // Initialize with 0
-  const doctorSlidesRef = useRef(null); // Ref to doctor slides container
+  const [doctorsPerPage, setDoctorsPerPage] = useState(0); 
+  const doctorSlidesRef = useRef(null); 
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -38,27 +38,33 @@ const Doctor = () => {
 
   const slideToNextDoctor = useCallback(() => {
     if (doctorSlidesRef.current) {
+      const slideWidth = doctorSlidesRef.current.offsetWidth / doctorsPerPage;
+      
+      
       doctorSlidesRef.current.style.transition = 'transform 0.5s ease-in-out';
-      doctorSlidesRef.current.style.transform = `translateX(-${100 / doctorsPerPage}%)`;
-
+      doctorSlidesRef.current.style.transform = `translateX(-${slideWidth}px)`;
+    
       setTimeout(() => {
+        
         setDoctors((prevDoctors) => {
           const updatedDoctors = [...prevDoctors];
-          updatedDoctors.push(updatedDoctors.shift()); // Rotate doctors array
+          updatedDoctors.push(updatedDoctors.shift());
           return updatedDoctors;
         });
-
+    
+        
         doctorSlidesRef.current.style.transition = 'none';
         doctorSlidesRef.current.style.transform = 'translateX(0)';
-      }, 500); // Ensure transition completes before resetting
+      }, 500); 
     }
   }, [doctorsPerPage]);
+  
 
   useEffect(() => {
     if (doctors.length > 0) {
       const interval = setInterval(() => {
         slideToNextDoctor();
-      }, 5000);
+      }, 3000);
 
       return () => clearInterval(interval);
     }
@@ -88,7 +94,7 @@ const Doctor = () => {
           <div className="doctor-slides-carousel">
             <div className="doctor-slides" ref={doctorSlidesRef}>
               {doctors.map((doctor, index) => (
-                <DoctorBox key={index} doctor={doctor} />
+                <DoctorBox key={index} doctor={doctor} style={{ width: '100%', height: '100%' }} />
               ))}
             </div>
           </div>
@@ -102,7 +108,7 @@ const DoctorBox = ({ doctor }) => {
   return (
     <div className="single-doctor-box">
       <div className="doctor-image">
-        <img src={doctor.img} alt={doctor.title} />
+        <img src={doctor.img} alt={doctor.title} style={{ width: '100%', height: '100%' }} />
       </div>
       <div className="doctor-content">
         <h3>{doctor.title}</h3>
