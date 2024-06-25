@@ -70,7 +70,7 @@
   margin-top: -10rem;
 }
 
-.slide-button button {
+/* .slide-button button {
   height: 50px;
   width: 180px;
   border-radius: 50px;
@@ -92,7 +92,7 @@
 .slide-button button:hover {
   background-color: #ffffff;
   color: rgb(182, 68, 68);
-}
+} */
 
 .icon-circle {
   display: inline-flex;
@@ -116,10 +116,10 @@
   opacity: 1;
 }
 
-.slide-button button:hover .icon-circle {
+/* .slide-button button:hover .icon-circle {
   background-color: #fc0808;
   color: #fbfafa;
-}
+} */
 
 .text h5 {
   color: #ffffff;

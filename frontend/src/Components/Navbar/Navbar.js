@@ -112,7 +112,7 @@ const Navbar = () => {
           })}
         </div>
       </div>
-      <div ref={placeholderRef} className="navbar-placeholder"></div>
+      {/* <div ref={placeholderRef} className="navbar-placeholder"></div> */}
       <nav className={`main-nav ${isSticky ? 'sticky' : ''}`} ref={navbarRef} id='navbar'>
         <div className="logo">
           <img src={logoUrl} alt="logo" />
