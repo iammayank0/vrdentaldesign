@@ -19,12 +19,12 @@ const Enquiry = () => {
           <div className="d-table-cell">
             <div className="page-container">
               <div className="page-title-content">
-                <h2>Contact US</h2>
+                <h2>CONTACT US</h2>
                 <ul>
                   <li>
                     <Link to="/*">Home</Link>
                   </li>
-                  <li>CONTACT Us</li>
+                  <li>Contact Us</li>
                 </ul>
               </div>
             </div>

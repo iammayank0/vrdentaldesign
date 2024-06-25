@@ -5,6 +5,7 @@ const NavPanel = () => {
   const [navbarItems, setNavbarItems] = useState([]);
   const [contactInfo, setContactInfo] = useState({});
   const [socialLinks, setSocialLinks] = useState([]);
+  const [logo, setLogo] = useState({});
   const [formData, setFormData] = useState({ title: '', url: '', position: '' });
   const [editingItemId, setEditingItemId] = useState(null);
 
@@ -12,6 +13,7 @@ const NavPanel = () => {
     fetchNavbarItems();
     fetchContactInfo();
     fetchSocialLinks();
+    fetchLogo();
   }, []);
 
   const fetchNavbarItems = async () => {
@@ -43,7 +45,16 @@ const NavPanel = () => {
       console.error('Error fetching social links:', error);
     }
   };
-  
+
+  const fetchLogo = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/logo');
+      const data = await response.json();
+      setLogo(data);
+    } catch (error) {
+      console.error('Error fetching logo:', error);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -52,7 +63,6 @@ const NavPanel = () => {
   const handleContactInfoChange = (e) => {
     setContactInfo({ ...contactInfo, [e.target.name]: e.target.value });
   };
-  
 
   const handleCreate = async (e) => {
     e.preventDefault();
@@ -145,8 +155,6 @@ const NavPanel = () => {
       console.error('Update error:', error);
     }
   };
-  
-  
 
   const handleSocialLinkEdit = (itemId) => {
     const linkToEdit = socialLinks.find(link => link._id === itemId);
@@ -179,6 +187,54 @@ const NavPanel = () => {
     }
   };
 
+  const handleLogoUpload = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', e.target.logo.files[0]);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/logo', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (response.ok) {
+        await fetchLogo();
+      } else {
+        console.error('Logo upload failed:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Logo upload error:', error);
+    }
+  };
+
+  const handleLogoEdit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', e.target.logo.files[0]);
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/logo/${logo._id}`, {
+        method: 'PUT',
+        body: formData,
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (response.ok) {
+        await fetchLogo();
+      } else {
+        console.error('Logo update failed:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Logo update error:', error);
+    }
+  };
+
   return (
     <div className="admin-nav-container">
       <h2 className="admin-nav-heading">Navbar Panel</h2>
@@ -199,14 +255,12 @@ const NavPanel = () => {
         ))}
       </ul>
 
-
       {/* Contact Info Form */}
       <form className="admin-form" onSubmit={handleContactInfoUpdate}>
         <input type="text" name="phone" value={contactInfo.phone || ''} onChange={handleContactInfoChange} placeholder="Phone" required />
         <input type="text" name="email" value={contactInfo.email || ''} onChange={handleContactInfoChange} placeholder="Email" required />
         <button type="submit">Update Contact Info</button>
       </form>
-
 
       {/* Social Links Form */}
       <form className="admin-form" onSubmit={handleSocialLinkUpdate}>
@@ -215,7 +269,6 @@ const NavPanel = () => {
         <button type="submit">{editingItemId ? 'Update' : 'Create'}</button>
         {editingItemId && <button type="button" onClick={() => setEditingItemId(null)}>Cancel</button>}
       </form>
-      {/* Social Links List */}
       <ul className="social-links-list">
         {socialLinks.map((link) => (
           <li key={link._id}>
@@ -224,6 +277,17 @@ const NavPanel = () => {
           </li>
         ))}
       </ul>
+
+      {/* Logo Upload Form */}
+      <form className="admin-form" onSubmit={logo._id ? handleLogoEdit : handleLogoUpload}>
+        <input type="file" name="logo" required />
+        <button type="submit">{logo._id ? 'Update Logo' : 'Upload Logo'}</button>
+      </form>
+      {logo.url && (
+        <div className="logo-preview">
+          <img src={logo.url} alt="Current Logo" />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import Navbar from '../../Navbar/Navbar';
-import './AboutPage.css';
 import { Link } from 'react-router-dom';
-
+import Navbar from '../../Navbar/Navbar';
 import About from '../../Main/Home-Page/About';
 import WhyChooseUs from '../../Main/Home-Page/WhyChooseUs';
 import Doctor from '../../Main/Home-Page/Doctor';
 import CTA from '../../Main/Home-Page/CTA';
-import Footer from "../../Footer/Footer";
+import Footer from '../../Footer/Footer';
+import './AboutPage.css';
 
 const AboutPage = () => {
   const [backgroundImage, setBackgroundImage] = useState('');
@@ -23,47 +22,49 @@ const AboutPage = () => {
     heading: '',
     description: ''
   });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const pageRef = useRef(null);
 
   useEffect(() => {
-    const fetchBackgroundImage = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/backgroundcontent');
-        setBackgroundImage(response.data.length > 0 ? response.data[0].BackgroundImage : '');
-      } catch (error) {
-        console.error('Failed to fetch about background image:', error);
-      }
-    };
+        const [bgResponse, pageResponse, usResponse] = await Promise.all([
+          axios.get('http://localhost:5000/api/backgroundcontent'),
+          axios.get('http://localhost:5000/api/aboutpagecontent'),
+          axios.get('http://localhost:5000/api/aboutuscontent'),
+        ]);
 
-    const fetchAboutPageContent = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/aboutpagecontent');
-        if (response.data.length > 0) {
-          setAboutPageContent(response.data[0]);
+        setBackgroundImage(bgResponse.data.length > 0 ? bgResponse.data[0].BackgroundImage : '');
+        if (pageResponse.data.length > 0) {
+          setAboutPageContent(pageResponse.data[0]);
         }
-      } catch (error) {
-        console.error('Failed to fetch about page content:', error);
-      }
-    };
-
-    const fetchAboutUsContent = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/api/aboutuscontent');
-        if (response.data.length > 0) {
-          setAboutUsContent(response.data[0]);
+        if (usResponse.data.length > 0) {
+          setAboutUsContent(usResponse.data[0]);
         }
+        setLoading(false);
       } catch (error) {
-        console.error('Failed to fetch about us content:', error);
+        setError('Failed to fetch content. Please try again later.');
+        setLoading(false);
       }
     };
 
-    fetchBackgroundImage();
-    fetchAboutPageContent();
-    fetchAboutUsContent();
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    if (pageRef.current) {
+      pageRef.current.style.backgroundImage = `url(${backgroundImage})`;
+    }
+  }, [backgroundImage]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <>
-      <div className='page' style={{ backgroundImage: `url(${backgroundImage})` }}>
+      <div className='page' ref={pageRef}>
         <Navbar />
         <div className='d-table'>
           <div className="d-table-cell">

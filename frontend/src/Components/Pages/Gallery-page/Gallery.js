@@ -13,7 +13,7 @@ const Gallery = () => {
     const fetchImages = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/galleryimg');
-        setImages(response.data); // Assuming response.data is an array of image objects
+        setImages(response.data); 
       } catch (error) {
         console.error('Failed to fetch gallery images:', error);
       }
@@ -22,7 +22,7 @@ const Gallery = () => {
     const fetchBackgroundImage = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/gallerybg');
-        // Assuming response.data is an array and taking the first element for simplicity
+        
         setBackgroundImage(response.data.length > 0 ? response.data[0].BackgroundImage : '');
       } catch (error) {
         console.error('Failed to fetch gallery background image:', error);

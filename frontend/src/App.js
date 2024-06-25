@@ -22,6 +22,7 @@ import ModelCreate from './Components/Pages/Service-page/Single-service-pages/Mo
 import SurgicalGuide from './Components/Pages/Service-page/Single-service-pages/SurgicalGuide';
 import DigitalDenture from './Components/Pages/Service-page/Single-service-pages/DigitalDenture';
 import Crown from './Components/Pages/Service-page/Single-service-pages/Crown';
+import BlogPage from './Components/Pages/Blog-page/BlogPage';
 
 
 const App = () => {
@@ -137,6 +138,11 @@ const App = () => {
         <Route
           exact path="/service-detail/crown-&-bridge"
           element={<Crown /> }
+        />
+
+        <Route
+          exact path="/blogs"
+          element={<BlogPage /> }
         />
 
           
