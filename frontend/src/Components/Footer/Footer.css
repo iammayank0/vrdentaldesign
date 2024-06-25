@@ -44,7 +44,7 @@
   }
 
    
-  @media (max-width: 1024px) {
+  @media (max-width: 1310px) {
     .single-footer-widget {
       flex: 0 0 100%; 
       padding:20px;
