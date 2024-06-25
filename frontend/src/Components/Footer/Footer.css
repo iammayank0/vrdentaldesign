@@ -43,6 +43,17 @@
     }
   }
 
+   
+  @media (max-width: 1024px) {
+    .single-footer-widget {
+      flex: 0 0 100%; 
+      padding:20px;
+    }
+    .footer-area{
+      padding:20px;
+
+    }
+  }
 .Description p {  
     color: #ebe7e7;
     font-size: 15px;
