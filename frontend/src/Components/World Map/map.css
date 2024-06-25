@@ -1,8 +1,13 @@
-.map img{
-  height: 50rem;
-  width: 90rem ;
+
+.video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  background-color: #000; 
 }
 
-.map{
-  padding-top: 0;
+.video {
+  width: 100%;
+  height: auto;
 }
