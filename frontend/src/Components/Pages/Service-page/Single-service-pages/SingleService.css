@@ -23,12 +23,14 @@
     list-style-type: none;
 }
 
-.services-btn ul li{
+.services-btn ul li{    
     margin-bottom: 12px;
 }
 
 .services-btn ul li:hover{
-    background-color: #63dee99a;
+    background-color: #df3946;
+    box-shadow: 0px 5px 28.5px 1.5px rgba(254, 35, 9, 0.2);
+
 }
 .services-btn ul li {
     display: block;
@@ -44,10 +46,12 @@
 
 .services-btn ul li a {
     text-decoration: none;
-    color: cornflowerblue;
+    color: #1d3557;
 }
 
-
+.services-btn ul:hover{
+    color:white;
+}
 
 .arrow-icn{
     display: inline-block;
@@ -55,14 +59,14 @@
     top: 50%;
     transform: translateY(-50%);
     right: 20px;
-    z-index: 1;
+    z-index: 0;
     transition: 0.5s;
 }
 
 .widget-image{
     margin-top: 35px;
     position: relative;
-    z-index: 1;
+    z-index: 0;
     border-radius: 5px;
     height: 23rem;
     width: 26rem;
