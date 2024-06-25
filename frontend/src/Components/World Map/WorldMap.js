@@ -1,12 +1,14 @@
 import React from 'react';
-import gifImage from '../../Assets/MAP.gif';
+import map from "../../Assets/map.mp4"
 import "./map.css"
 
 const WorldMap = () => {
   return (
-    <div className='map'>
-      <h2>My GIF</h2>
-      <img src={gifImage} alt="Example GIF" />
+    <div className="video-container">
+      <video className="video" autoPlay loop muted playsInline>
+        <source src={map} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     </div>
   )
 }

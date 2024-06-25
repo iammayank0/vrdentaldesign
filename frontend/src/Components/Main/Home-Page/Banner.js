@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import '../Main.css';
-
 import { FaArrowRight } from 'react-icons/fa';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import Navbar from '../../Navbar/Navbar';
+import '../Main.css';
 
 const Banner = () => {
     const [slides, setSlides] = useState([]);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [loadingBanner, setLoadingBanner] = useState(true);
     const [error, setError] = useState(null);
-    const [backgroundImage, setBackgroundImage] = useState('');
+    const [animateH5, setAnimateH5] = useState(false);
+    const [animateH1P, setAnimateH1P] = useState(false);
 
     useEffect(() => {
         const fetchBannerContent = async () => {
@@ -34,46 +33,33 @@ const Banner = () => {
 
     useEffect(() => {
         if (slides.length > 0) {
-            setBackgroundImage(slides[currentSlide].backgroundImageUrl);
+            const interval = setInterval(() => {
+                setCurrentSlide(prevSlide => (prevSlide + 1) % slides.length);
+            }, 6000);
+            return () => clearInterval(interval);
         }
-    }, [currentSlide, slides]);
+    }, [slides]);
 
-    const goToPrevSlide = () => {
-        setCurrentSlide(prevSlide => (prevSlide - 1 + slides.length) % slides.length);
-    };
+    useEffect(() => {
+        // Reset animation classes on slide change
+        setAnimateH5(false);
+        setAnimateH1P(false);
+        // Trigger animation classes after a short delay
+        const timeout = setTimeout(() => {
+            setAnimateH5(true);
+            setAnimateH1P(true);
+        }, 100);
 
-    const goToNextSlide = () => {
-        setCurrentSlide(prevSlide => (prevSlide + 1) % slides.length);
-    };
+        return () => clearTimeout(timeout);
+    }, [currentSlide]);
 
     return (
-        <div className="banner-container" style={{ backgroundImage: `url(${backgroundImage})` }}>
-          <Navbar/>
-            {loadingBanner && <div>loadingBanner...</div>}
+        <div className="banner-container" style={{ backgroundImage: `url(${slides[currentSlide]?.backgroundImageUrl})` }}>
+            <Navbar />
+            {loadingBanner && <div>Loading...</div>}
             {error && <div>{error}</div>}
-
             {!loadingBanner && !error && (
                 <div className="banner-section">
-                    <button
-                        className="arrow back"
-                        onClick={goToPrevSlide}
-                        aria-label="Previous Slide"
-                    >
-                        <div className="arrow-box">
-                            <IoIosArrowBack />
-                        </div>
-                    </button>
-
-                    <button
-                        className="arrow forward"
-                        onClick={goToNextSlide}
-                        aria-label="Next Slide"
-                    >
-                        <div className="arrow-box">
-                            <IoIosArrowForward />
-                        </div>
-                    </button>
-
                     {slides.map((slide, index) => (
                         <div
                             key={index}
@@ -84,12 +70,10 @@ const Banner = () => {
                         >
                             <div className="main-banner">
                                 <div className="text">
-                                    <h5 id={`slide-${index}`}>{slide.title}</h5>
-                                    <h1>{slide.heading}</h1>
-                                    <p>{slide.description}</p>
-                                    <div className="slide-button">
-                                        <button> KNOW MORE<span className="icon-circle"><FaArrowRight /></span></button>
-                                    </div>
+                                    <h5 className={animateH5 ? 'animate-up' : ''} id={`slide-${index}`}>{slide.title}</h5>
+                                    <h1 className={animateH1P ? 'animate-left' : ''}>{slide.heading}</h1>
+                                    <p className={animateH1P ? 'animate-left' : ''}>{slide.description}</p>
+                                
                                 </div>
                             </div>
                         </div>
