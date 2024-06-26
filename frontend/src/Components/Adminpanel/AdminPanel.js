@@ -1,20 +1,20 @@
 import React from 'react';
 import NavPanel from './Subpanel/NavPanel';
-import SlidePanel from './Subpanel/SlidePanel';
-import AboutPanel from './Subpanel/AboutPanel';
-import FactPanel from './Subpanel/FactPanel';
-import ServicePanel from './Subpanel/ServicePanel';
-import WhyChooseUsPanel from './Subpanel/WhychooseusPanel';
-import DoctorPanel from './Subpanel/DoctorPanel';
-import CTAPanel from './Subpanel/CTApanel';
-import PartnerPanel from './Subpanel/PartnerPanel';
-import BlogPanel from './Subpanel/BlogPanel';
+// import SlidePanel from './Subpanel/SlidePanel';
+// import AboutPanel from './Subpanel/AboutPanel';
+// import FactPanel from './Subpanel/FactPanel';
+// import ServicePanel from './Subpanel/ServicePanel';
+// import WhyChooseUsPanel from './Subpanel/WhychooseusPanel';
+// import DoctorPanel from './Subpanel/DoctorPanel';
+// import CTAPanel from './Subpanel/CTApanel';
+// import PartnerPanel from './Subpanel/PartnerPanel';
+// import BlogPanel from './Subpanel/BlogPanel';
 
 const AdminPanel = () => {
   return (
     <div className='adminPanel'>
       <NavPanel />
-      <SlidePanel/>
+      {/* <SlidePanel/>
       <AboutPanel />
       <FactPanel />
       <ServicePanel />
@@ -22,7 +22,7 @@ const AdminPanel = () => {
       <DoctorPanel />
       <CTAPanel />
       <PartnerPanel />
-      <BlogPanel />
+      <BlogPanel /> */}
     </div>
   )
 }

@@ -24,6 +24,11 @@ import DigitalDenture from './Components/Pages/Service-page/Single-service-pages
 import Crown from './Components/Pages/Service-page/Single-service-pages/Crown';
 import BlogPage from './Components/Pages/Blog-page/BlogPage';
 import FirstBlogPage from './Components/Pages/Blog-page/Single-Blog-Page/FirstBlogPage';
+import SecondBlogPage from './Components/Pages/Blog-page/Single-Blog-Page/SecondBlogPage';
+import ThirdBlogPage from './Components/Pages/Blog-page/Single-Blog-Page/ThirdBlogPage';
+import FourthBlogPage from './Components/Pages/Blog-page/Single-Blog-Page/FourthBlogPage';
+import FifthBlogPage from './Components/Pages/Blog-page/Single-Blog-Page/FifthBlogPage';
+import SixthBlogPage from './Components/Pages/Blog-page/Single-Blog-Page/SixthBlogPage';
 
 
 const App = () => {
@@ -149,6 +154,31 @@ const App = () => {
         <Route
           exact path="/blog-post/1"
           element={<FirstBlogPage /> }
+        />
+
+        <Route
+          exact path="/blog-post/2"
+          element={<SecondBlogPage /> }
+        />
+
+        <Route
+          exact path="/blog-post/3"
+          element={<ThirdBlogPage /> }
+        />
+
+        <Route
+          exact path="/blog-post/4"
+          element={<FourthBlogPage /> }
+        />
+
+        <Route
+          exact path="/blog-post/5"
+          element={<FifthBlogPage /> }
+        />
+
+        <Route
+          exact path="/blog-post/6"
+          element={<SixthBlogPage /> }
         />
 
           

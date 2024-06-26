@@ -54,7 +54,7 @@ const AboutPage = () => {
   }, []);
 
   useEffect(() => {
-    if (pageRef.current) {
+    if (pageRef.current && backgroundImage) {
       pageRef.current.style.backgroundImage = `url(${backgroundImage})`;
     }
   }, [backgroundImage]);

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
 import './Panel.css';
 
 const NavPanel = () => {
@@ -236,7 +238,53 @@ const NavPanel = () => {
   };
 
   return (
-    <div className="admin-nav-container">
+    <div className="panel-container">
+      <div className="panel-button">
+              <aside className="panel-widget-area">
+                <section className="panel-list">
+                    <div className="panel-btn" >
+                      <ul>
+                        <li>
+                          <Link
+                            to="#/"
+                          >
+                            Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="#/"
+                          >
+                            Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="#/"
+                          >
+                            Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="#/"
+                          >
+                            Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="#/"
+                          >
+                            Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                </section>
+              </aside>
+            </div>
+      <div className="panel-form">
       <h2 className="admin-nav-heading">Navbar Panel</h2>
       <form className="admin-form" onSubmit={editingItemId ? handleUpdate : handleCreate}>
         <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Title" required />
@@ -288,6 +336,7 @@ const NavPanel = () => {
           <img src={logo.url} alt="Current Logo" />
         </div>
       )}
+      </div>
     </div>
   );
 };
