@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
 import '../Main.css';
-import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
+
 
 const Doctor = () => {
   const [doctors, setDoctors] = useState([]);
@@ -113,28 +113,28 @@ const DoctorBox = ({ doctor }) => {
       <div className="doctor-content">
         <h3>{doctor.title}</h3>
         <span>{doctor.time}</span> 
-        <ul className="social-icon">
-          <li>
-            <a href={doctor.socialLinks.facebook}>
-              <FaFacebook />
-            </a>
-          </li>
-          <li>
-            <a href={doctor.socialLinks.twitter}>
-              <FaTwitter />
-            </a>
-          </li>
-          <li>
-            <a href={doctor.socialLinks.linkedin}>
-              <FaLinkedin />
-            </a>
-          </li>
-          <li>
-            <a href={doctor.socialLinks.instagram}>
-              <FaInstagram />
-            </a>
-          </li>
-        </ul>
+          {/* <ul className="social-icon">
+            <li>
+              <a href={doctor.socialLinks.facebook}>
+                <FaFacebook />
+              </a>
+            </li>
+            <li>
+              <a href={doctor.socialLinks.twitter}>
+                <FaTwitter />
+              </a>
+            </li>
+            <li>
+              <a href={doctor.socialLinks.linkedin}>
+                <FaLinkedin />
+              </a>
+            </li>
+            <li>
+              <a href={doctor.socialLinks.instagram}>
+                <FaInstagram />
+              </a>
+            </li>
+          </ul> */}
       </div>
     </div>
   );
