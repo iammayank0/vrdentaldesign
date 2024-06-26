@@ -85,16 +85,26 @@ const FirstBlogPage = () => {
                   </li>
                 </ul>
               </div>
-              <div className="blog-detail-header">
-                <h3>{blog.BlogTitle}</h3>
-              </div>
+              <h3>{blog.BlogTitle}</h3>
+              <p></p>
+              <p>
+                <span>{blog.descriptionTitle}</span>
+              </p>
               <div className="Blog-detail-desc">
                 <p>
-                  <span>{blog.descriptionTitle}</span>
                   <span>{blog.description}</span>
                 </p>
               </div>
             </div>
+          </div>
+          <div className="blog-widget">
+            <aside className="blog-widget-area">
+              <section className="widget-class">
+                <h3 className="blog-widget-title">
+                  po
+                </h3>
+              </section>
+            </aside>
           </div>
         </div>
       </section>
