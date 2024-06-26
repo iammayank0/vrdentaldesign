@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
 import './Panel.css';
 
 const PartnerPanel = () => {
@@ -77,7 +79,90 @@ const PartnerPanel = () => {
 
   // JSX to render partner panel UI
   return (
-    <div>
+    <div className="panel-container">
+      <div className="panel-button">
+              <aside className="panel-widget-area">
+                <section className="panel-list">
+                    <div className="panel-btn" >
+                    <h3>Home Page</h3>
+                      <ul>
+                        <li>
+                          <Link
+                            to="/admin/nav-panel"
+                          >
+                            Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/about-section"
+                          >
+                            About <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/funFacts"
+                          >
+                            Fun Facts <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/OurSpecialisation"
+                          >
+                            Our Specialisation <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/wycu"
+                          >
+                            Why You Choose Us <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/services"
+                          >
+                            Services <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/cta"
+                          >
+                            CTA <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/partners"
+                          >
+                            Partners Image <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/blog"
+                          >
+                            Blogs <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/footer"
+                          >
+                            Footer <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                </section>
+              </aside>
+            </div>
+      <div className="panel-form">
+      <div>
       {/* Input for adding new partner image */}
       <h1>Partner Images</h1>
       <div className="partner-add-form">
@@ -93,6 +178,8 @@ const PartnerPanel = () => {
             <button onClick={() => handleDeletePartner(partner._id)}>Delete</button>
           </div>
         ))}
+      </div>
+    </div>
       </div>
     </div>
   );

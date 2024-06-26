@@ -243,40 +243,76 @@ const NavPanel = () => {
               <aside className="panel-widget-area">
                 <section className="panel-list">
                     <div className="panel-btn" >
+                    <h3>Home Page</h3>
                       <ul>
                         <li>
                           <Link
-                            to="#/"
+                            to="/admin/nav-panel"
                           >
                             Navbar <div className="arrow-icn"><FaArrowRight /></div>
                           </Link>
                         </li>
                         <li>
                           <Link
-                            to="#/"
+                            to="/admin/about-section"
                           >
-                            Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                            About <div className="arrow-icn"><FaArrowRight /></div>
                           </Link>
                         </li>
                         <li>
                           <Link
-                            to="#/"
+                            to="/admin/funFacts"
                           >
-                            Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                            Fun Facts <div className="arrow-icn"><FaArrowRight /></div>
                           </Link>
                         </li>
                         <li>
                           <Link
-                            to="#/"
+                            to="/admin/OurSpecialisation"
                           >
-                            Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                            Our Specialisation <div className="arrow-icn"><FaArrowRight /></div>
                           </Link>
                         </li>
                         <li>
                           <Link
-                            to="#/"
+                            to="/admin/wycu"
                           >
-                            Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                            Why You Choose Us <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/services"
+                          >
+                            Services <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/cta"
+                          >
+                            CTA <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/partners"
+                          >
+                            Partners Image <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/blog"
+                          >
+                            Blogs <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/footer"
+                          >
+                            Footer <div className="arrow-icn"><FaArrowRight /></div>
                           </Link>
                         </li>
                       </ul>
