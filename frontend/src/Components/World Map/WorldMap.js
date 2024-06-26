@@ -5,7 +5,7 @@ import "./map.css"
 const WorldMap = () => {
   return (
     <div className="video-container">
-      <video className="video" autoPlay loop muted playsInline>
+      <video className="map-video" autoPlay loop muted playsInline>
         <source src={map} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
