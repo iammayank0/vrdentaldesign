@@ -23,6 +23,7 @@ import SurgicalGuide from './Components/Pages/Service-page/Single-service-pages/
 import DigitalDenture from './Components/Pages/Service-page/Single-service-pages/DigitalDenture';
 import Crown from './Components/Pages/Service-page/Single-service-pages/Crown';
 import BlogPage from './Components/Pages/Blog-page/BlogPage';
+import FirstBlogPage from './Components/Pages/Blog-page/Single-Blog-Page/FirstBlogPage';
 
 
 const App = () => {
@@ -143,6 +144,11 @@ const App = () => {
         <Route
           exact path="/blogs"
           element={<BlogPage /> }
+        />
+
+        <Route
+          exact path="/blog-post/1"
+          element={<FirstBlogPage /> }
         />
 
           

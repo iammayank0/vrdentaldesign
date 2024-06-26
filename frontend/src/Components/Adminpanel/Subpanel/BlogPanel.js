@@ -5,11 +5,15 @@ const BlogPanel = () => {
   const [blogs, setBlogs] = useState([]);
   const [blogTexts, setBlogTexts] = useState([]);
   const [newBlogTitle, setNewBlogTitle] = useState('');
+  const [newDescriptionTitle, setNewDescriptionTitle] = useState('');
+  const [newDescription, setNewDescription] = useState('');
   const [newBlogDate, setNewBlogDate] = useState('');
   const [newBlogLink, setNewBlogLink] = useState('');
   const [newBlogImage, setNewBlogImage] = useState(null);
   const [selectedBlogId, setSelectedBlogId] = useState(null);
   const [editBlogTitle, setEditBlogTitle] = useState('');
+  const [editDescriptionTitle, setEditDescriptionTitle] = useState('');
+  const [editDescription, setEditDescription] = useState('');
   const [editBlogDate, setEditBlogDate] = useState('');
   const [editBlogLink, setEditBlogLink] = useState('');
   const [editBlogImage, setEditBlogImage] = useState(null);
@@ -46,6 +50,8 @@ const BlogPanel = () => {
     event.preventDefault();
     const formData = new FormData();
     formData.append('BlogTitle', newBlogTitle);
+    formData.append('descriptionTitle', newDescriptionTitle);
+    formData.append('description', newDescription);
     formData.append('date', newBlogDate);
     formData.append('link', newBlogLink);
     if (newBlogImage) {
@@ -58,6 +64,8 @@ const BlogPanel = () => {
       });
       setBlogs([...blogs, response.data]);
       setNewBlogTitle('');
+      setNewDescriptionTitle('');
+      setNewDescription('');
       setNewBlogDate('');
       setNewBlogLink('');
       setNewBlogImage(null);
@@ -71,6 +79,8 @@ const BlogPanel = () => {
     
     const formData = new FormData();
     formData.append('BlogTitle', editBlogTitle);
+    formData.append('descriptionTitle', editDescriptionTitle);
+    formData.append('description', editDescription);
     formData.append('date', editBlogDate);
     formData.append('link', editBlogLink);
     if (editBlogImage) {
@@ -85,6 +95,8 @@ const BlogPanel = () => {
       setBlogs(updatedBlogs);
       setSelectedBlogId(null);
       setEditBlogTitle('');
+      setEditDescriptionTitle('');
+      setEditDescription('');
       setEditBlogDate('');
       setEditBlogLink('');
       setEditBlogImage(null);
@@ -129,11 +141,15 @@ const BlogPanel = () => {
     if (selectedId) {
       const selectedBlog = blogs.find(blog => blog._id === selectedId);
       setEditBlogTitle(selectedBlog.BlogTitle);
+      setEditDescriptionTitle(selectedBlog.descriptionTitle);
+      setEditDescription(selectedBlog.description);
       setEditBlogDate(selectedBlog.date);
       setEditBlogLink(selectedBlog.link);
       setEditBlogImageUrl(selectedBlog.image);
     } else {
       setEditBlogTitle('');
+      setEditDescriptionTitle('');
+      setEditDescription('');
       setEditBlogDate('');
       setEditBlogLink('');
       setEditBlogImageUrl('');
@@ -153,6 +169,10 @@ const BlogPanel = () => {
       <form onSubmit={handleBlogSubmit}>
         <label>Title:</label>
         <input type="text" value={newBlogTitle} onChange={(e) => setNewBlogTitle(e.target.value)} required />
+        <label>Description Title:</label>
+        <input type="text" value={newDescriptionTitle} onChange={(e) => setNewDescriptionTitle(e.target.value)} required />
+        <label>Description:</label>
+        <textarea value={newDescription} onChange={(e) => setNewDescription(e.target.value)} required />
         <label>Date:</label>
         <input type="text" value={newBlogDate} onChange={(e) => setNewBlogDate(e.target.value)} required />
         <label>Link:</label>
@@ -173,6 +193,10 @@ const BlogPanel = () => {
         <div>
           <label>Title:</label>
           <input type="text" value={editBlogTitle} onChange={(e) => setEditBlogTitle(e.target.value)} />
+          <label>Description Title:</label>
+          <input type="text" value={editDescriptionTitle} onChange={(e) => setEditDescriptionTitle(e.target.value)} />
+          <label>Description:</label>
+          <textarea value={editDescription} onChange={(e) => setEditDescription(e.target.value)} />
           <label>Date:</label>
           <input type="text" value={editBlogDate} onChange={(e) => setEditBlogDate(e.target.value)} />
           <label>Link:</label>

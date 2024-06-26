@@ -27,7 +27,7 @@ const CustomTray = () => {
         const response = await axios.get('http://localhost:5000/api/single-services'); 
         setServices(response.data);
         // Set the second service separately for use in rendering
-        if (response.data.length > 12) {
+        if (response.data.length > 0) {
           setservice(response.data[5]);
         }
       } catch (error) {

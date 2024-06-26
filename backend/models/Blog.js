@@ -8,6 +8,8 @@ const BlogTextSchema = new mongoose.Schema({
 
 const BlogSchema = new mongoose.Schema({
   BlogTitle: { type: String, required: true },
+  descriptionTitle: { type: String, required: true },
+  description: { type: String, required: true },
   date: { type: String, required: true }  ,
   image: { type: String, required: true },
   link: { type: String, required: true }

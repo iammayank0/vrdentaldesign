@@ -1008,7 +1008,7 @@ input[type="text"], input[type="email"], input[type="number"] {
   background-attachment: scroll;
   background-size: auto;
   position: relative;
-  z-index: 1;
+  z-index: 0;
   background-color: #df3946;
   background-position: center center;
   background-size: cover;
