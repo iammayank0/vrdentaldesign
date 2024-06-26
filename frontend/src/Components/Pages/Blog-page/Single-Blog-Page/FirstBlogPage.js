@@ -76,11 +76,11 @@ const FirstBlogPage = () => {
               <div className="entry-meta">
                 <ul>
                   <li>
-                  <FaRegCalendarAlt />
+                  <FaRegCalendarAlt className="blog-icon" />
                   <a href="#/">{blog.date}</a>
                   </li>
                   <li>
-                    <FaUser />
+                    <FaUser className="blog-icon" />
                     Admin
                   </li>
                 </ul>
@@ -88,7 +88,7 @@ const FirstBlogPage = () => {
               <h3>{blog.BlogTitle}</h3>
               <p></p>
               <p>
-                <span>{blog.descriptionTitle}</span>
+                <span className="desc-title">{blog.descriptionTitle}</span>
               </p>
               <div className="Blog-detail-desc">
                 <p>
@@ -96,15 +96,6 @@ const FirstBlogPage = () => {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="blog-widget">
-            <aside className="blog-widget-area">
-              <section className="widget-class">
-                <h3 className="blog-widget-title">
-                  po
-                </h3>
-              </section>
-            </aside>
           </div>
         </div>
       </section>

@@ -24,6 +24,21 @@ import DigitalDenture from './Components/Pages/Service-page/Single-service-pages
 import Crown from './Components/Pages/Service-page/Single-service-pages/Crown';
 import BlogPage from './Components/Pages/Blog-page/BlogPage';
 import FirstBlogPage from './Components/Pages/Blog-page/Single-Blog-Page/FirstBlogPage';
+import SecondBlogPage from './Components/Pages/Blog-page/Single-Blog-Page/SecondBlogPage';
+import ThirdBlogPage from './Components/Pages/Blog-page/Single-Blog-Page/ThirdBlogPage';
+import FourthBlogPage from './Components/Pages/Blog-page/Single-Blog-Page/FourthBlogPage';
+import FifthBlogPage from './Components/Pages/Blog-page/Single-Blog-Page/FifthBlogPage';
+import SixthBlogPage from './Components/Pages/Blog-page/Single-Blog-Page/SixthBlogPage';
+import NavPanel from './Components/Adminpanel/Subpanel/NavPanel';
+import AboutPanel from './Components/Adminpanel/Subpanel/AboutPanel';
+import FactPanel from './Components/Adminpanel/Subpanel/FactPanel';
+import ServicePanel from './Components/Adminpanel/Subpanel/ServicePanel';
+import WhyChooseUsPanel from './Components/Adminpanel/Subpanel/WhychooseusPanel';
+import DoctorPanel from './Components/Adminpanel/Subpanel/DoctorPanel';
+import CTAPanel from './Components/Adminpanel/Subpanel/CTApanel';
+import PartnerPanel from './Components/Adminpanel/Subpanel/PartnerPanel';
+import BlogPanel from './Components/Adminpanel/Subpanel/BlogPanel';
+import FooterPanel from './Components/Adminpanel/Subpanel/FooterPanel';
 
 
 const App = () => {
@@ -150,6 +165,44 @@ const App = () => {
           exact path="/blog-post/1"
           element={<FirstBlogPage /> }
         />
+
+        <Route
+          exact path="/blog-post/2"
+          element={<SecondBlogPage /> }
+        />
+
+        <Route
+          exact path="/blog-post/3"
+          element={<ThirdBlogPage /> }
+        />
+
+        <Route
+          exact path="/blog-post/4"
+          element={<FourthBlogPage /> }
+        />
+
+        <Route
+          exact path="/blog-post/5"
+          element={<FifthBlogPage /> }
+        />
+
+        <Route
+          exact path="/blog-post/6"
+          element={<SixthBlogPage /> }
+        />
+
+       <Route exact path='/admin/nav-panel' element={<NavPanel/>} />
+       <Route exact path='/admin/about-section' element={<AboutPanel/>} />
+       <Route exact path='/admin/funFacts' element={<FactPanel/>} />
+       <Route exact path='/admin/OurSpecialisation' element={<ServicePanel/>} />
+       <Route exact path='/admin/wycu' element={<WhyChooseUsPanel/>} />
+       <Route exact path='/admin/services' element={<DoctorPanel/>} />
+       <Route exact path='/admin/cta' element={<CTAPanel/>} />
+       <Route exact path='/admin/partners' element={<PartnerPanel/>} />
+       <Route exact path='/admin/blog' element={<BlogPanel/>} />
+       <Route exact path='/admin/footer' element={<FooterPanel/>} />
+       {/* <Route exact path='/admin/nav-panel' element={<NavPanel/>} />
+       <Route exact path='/admin/nav-panel' element={<NavPanel/>} /> */}
 
           
       </Routes>
