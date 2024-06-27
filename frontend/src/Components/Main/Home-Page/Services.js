@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../Main.css";
-import ServiceVideo from "../../../Assets/services.mp4"
+import ServiceVideo from "../../../Assets/service.mp4"
 
 import { FaArrowRight } from "react-icons/fa";
 
