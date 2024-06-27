@@ -36,13 +36,13 @@ const AboutPage = () => {
           axios.get('http://localhost:5000/api/aboutuscontent'),
         ]);
 
-        setBackgroundImage(bgResponse.data.length > 0 ? bgResponse.data[0].BackgroundImage : '');
-        if (pageResponse.data.length > 0) {
-          setAboutPageContent(pageResponse.data[0]);
-        }
-        if (usResponse.data.length > 0) {
-          setAboutUsContent(usResponse.data[0]);
-        }
+        const bgData = bgResponse.data[0] || {};
+        const pageData = pageResponse.data[0] || {};
+        const usData = usResponse.data[0] || {};
+
+        setBackgroundImage(bgData.BackgroundImage || '');
+        setAboutPageContent(pageData);
+        setAboutUsContent(usData);
         setLoading(false);
       } catch (error) {
         setError('Failed to fetch content. Please try again later.');

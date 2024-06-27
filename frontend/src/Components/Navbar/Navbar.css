@@ -18,6 +18,27 @@
   transition: transform 0.3s ease; 
 }
 
+.menu-link ul li a.active,
+.dropdown-menu ul li a.active {
+  color: #df3946; 
+  pointer-events: none;
+  cursor: default;
+}
+
+
+.menu-link ul li::after{
+  content: '';
+  width: 0%;
+  height: 2px;
+  background: #f44336;
+  display: block;
+  margin: auto;
+}
+.menu-link ul li:hover::after{
+  width: 100%;
+  transition: 0.5s;
+}
+
 /* .navbar-placeholder {
   height: 0;
   width: 100%;

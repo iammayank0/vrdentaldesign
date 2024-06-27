@@ -4,7 +4,7 @@ import { FaPhone } from 'react-icons/fa';
 import { SiMinutemailer } from 'react-icons/si';
 import { IoMenuSharp, IoClose } from 'react-icons/io5';
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const iconMap = {
   FaFacebook: FaFacebook,
@@ -22,9 +22,11 @@ const Navbar = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isSticky, setIsSticky] = useState(false);
+  const [activeLink, setActiveLink] = useState('');
 
   const navbarRef = useRef(null);
   const placeholderRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,8 +84,17 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setActiveLink(location.pathname);
+  }, [location]);
+
   const handleMenuToggle = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleLinkClick = (url) => {
+    setActiveLink(url);
+    setMenuOpen(false);
   };
 
   if (loading) {
@@ -112,7 +123,6 @@ const Navbar = () => {
           })}
         </div>
       </div>
-      {/* <div ref={placeholderRef} className="navbar-placeholder"></div> */}
       <nav className={`main-nav ${isSticky ? 'sticky' : ''}`} ref={navbarRef} id='navbar'>
         <div className="logo">
           <img src={logoUrl} alt="logo" />
@@ -120,7 +130,15 @@ const Navbar = () => {
         <div className={`menu-link ${menuOpen ? 'hidden' : ''}`}>
           <ul>
             {navbarItems.map((item, index) => (
-              <li key={index}><Link to={item.url}>{item.title}</Link></li>
+              <li key={index}>
+                <Link
+                  to={item.url}
+                  className={activeLink === item.url ? 'active' : ''}
+                  onClick={() => handleLinkClick(item.url)}
+                >
+                  {item.title}
+                </Link>
+              </li>
             ))}
           </ul>
         </div>
@@ -132,7 +150,15 @@ const Navbar = () => {
         <div className="dropdown-menu">
           <ul>
             {navbarItems.map((item, index) => (
-              <li key={index}><Link to={item.url}>{item.title}</Link></li>
+              <li key={index}>
+                <Link
+                  to={item.url}
+                  className={activeLink === item.url ? 'active' : ''}
+                  onClick={() => handleLinkClick(item.url)}
+                >
+                  {item.title}
+                </Link>
+              </li>
             ))}
           </ul>
         </div>
