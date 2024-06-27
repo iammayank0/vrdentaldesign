@@ -191,16 +191,16 @@ const App = () => {
           element={<SixthBlogPage /> }
         />
 
-       <Route exact path='/admin/nav-panel' element={<NavPanel/>} />
-       <Route exact path='/admin/about-section' element={<AboutPanel/>} />
-       <Route exact path='/admin/funFacts' element={<FactPanel/>} />
-       <Route exact path='/admin/OurSpecialisation' element={<ServicePanel/>} />
-       <Route exact path='/admin/wycu' element={<WhyChooseUsPanel/>} />
-       <Route exact path='/admin/services' element={<DoctorPanel/>} />
-       <Route exact path='/admin/cta' element={<CTAPanel/>} />
-       <Route exact path='/admin/partners' element={<PartnerPanel/>} />
-       <Route exact path='/admin/blog' element={<BlogPanel/>} />
-       <Route exact path='/admin/footer' element={<FooterPanel/>} />
+       <Route exact path='/admin/nav-panel' element={loggedIn ? <NavPanel/> : <Navigate to="/login" />} /> 
+       <Route exact path='/admin/about-section' element={loggedIn ? <AboutPanel/> : <Navigate to="/login" />} />
+       <Route exact path='/admin/funFacts' element={loggedIn ? <FactPanel/> : <Navigate to="/login" />} />
+       <Route exact path='/admin/OurSpecialisation' element={loggedIn ? <ServicePanel/> : <Navigate to="/login" />}/>
+       <Route exact path='/admin/wycu' element={loggedIn ? <WhyChooseUsPanel/> : <Navigate to="/login" />}/>
+       <Route exact path='/admin/services' element={loggedIn ? <DoctorPanel/> : <Navigate to="/login" />}/>
+       <Route exact path='/admin/cta' element={loggedIn ? <CTAPanel/> : <Navigate to="/login" />}/> 
+       <Route exact path='/admin/partners' element={loggedIn ? <PartnerPanel/> : <Navigate to="/login" />}/>
+       <Route exact path='/admin/blog' element={loggedIn ? <BlogPanel/> : <Navigate to="/login" />}/>
+       <Route exact path='/admin/footer' element={loggedIn ?<FooterPanel/> : <Navigate to="/login" />}/>
        {/* <Route exact path='/admin/nav-panel' element={<NavPanel/>} />
        <Route exact path='/admin/nav-panel' element={<NavPanel/>} /> */}
 
