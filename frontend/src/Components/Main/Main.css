@@ -609,7 +609,7 @@ input[type="text"], input[type="email"], input[type="number"] {
 }
 
 .service-content {
-  flex: 1 1 40%;
+  flex: 40%;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -641,6 +641,18 @@ input[type="text"], input[type="email"], input[type="number"] {
 .services-area img {
   width: 100%;
   height: auto;
+}
+
+.services-video {
+  flex: 60%;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+
+.service-video {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .learnMore-button button {
