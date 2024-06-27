@@ -11,7 +11,7 @@ const Banner = () => {
   return (
     <div className="banner-container">
         <Navbar />
-      <video className="video" autoPlay loop muted playsInline onError={handleVideoError}>
+      <video className="banner-video" autoPlay loop muted playsInline onError={handleVideoError}>
         <source src={banner} type="video/mp4" />
         Your browser does not support the video tag.
       </video>

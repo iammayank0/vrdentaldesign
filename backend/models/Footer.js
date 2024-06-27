@@ -18,8 +18,7 @@ const FooterSchema = new mongoose.Schema({
     },
   ],
   contactInfo: {
-    location1: { type: String, required: true },
-    location2: { type: String, required: true },
+    locations: [String],
     phone: { type: String, required: true },
   },
   copyright: { type: String, required: true },

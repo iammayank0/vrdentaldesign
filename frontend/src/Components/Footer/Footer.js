@@ -50,12 +50,11 @@ const Footer = () => {
               <div className="single-footer-widget">
                 <h3>CONTACT INFO</h3>
                 <ul className="footer-contact-info">
-                  <li>
-                    <span>Location:</span> {footerData.contactInfo.location1}
-                  </li>
-                  <li>
-                    <span>Location:</span> {footerData.contactInfo.location2}
-                  </li>
+                  {footerData.contactInfo.locations && footerData.contactInfo.locations.map((location, index) => (
+                    <li key={index}>
+                      <span>Location :</span> {location}
+                    </li>
+                  ))}
                   <li>
                     <span>Phone:</span> {footerData.contactInfo.phone}
                   </li>

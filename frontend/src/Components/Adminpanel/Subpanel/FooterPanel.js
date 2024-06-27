@@ -1,202 +1,309 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
+import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { MdOutlineLocationOn, MdPhone, MdEdit } from "react-icons/md";
 
 const FooterPanel = () => {
-  const [footerData, setFooterData] = useState({
-    _id: '',
-    description: {
-      logo: '',
-      text: '',
-    },
-    socialLinks: {
-      facebook: '',
-      twitter: '',
-      linkedin: '',
-      instagram: '',
-    },
-    quickLinks: [
-      {
-        text: '',
-        url: '',
-      },
-    ],
-    contactInfo: {
-      location1: '',
-      location2: '',
-      phone: '',
-    },
+  const [footerData, setFooterData] = useState(null);
+  const [editing, setEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    descriptionText: '',
+    logo: null,
+    facebook: '',
+    twitter: '',
+    linkedin: '',
+    instagram: '',
+    quickLinks: [],
+    locations: [],
+    phone: '',
     copyright: '',
   });
 
   useEffect(() => {
+    // Fetch footer data from your backend API
+    const fetchFooterData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/footer'); // Replace with your actual API endpoint
+        setFooterData(response.data);
+        setFormData({
+          descriptionText: response.data.description.text,
+          facebook: response.data.socialLinks.facebook,
+          twitter: response.data.socialLinks.twitter,
+          linkedin: response.data.socialLinks.linkedin,
+          instagram: response.data.socialLinks.instagram,
+          quickLinks: response.data.quickLinks.map(link => ({ text: link.text, url: link.url })),
+          locations: response.data.contactInfo.locations.slice(), // Create a copy of locations array
+          phone: response.data.contactInfo.phone,
+          copyright: response.data.copyright,
+        });
+      } catch (error) {
+        console.error('Error fetching footer data:', error);
+      }
+    };
+
     fetchFooterData();
   }, []);
 
-  const fetchFooterData = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/api/footer');
-      if (response.data) {
-        setFooterData(response.data);
-      } else {
-        console.error('No footer data found');
-      }
-    } catch (error) {
-      console.error('Error fetching footer data:', error);
-    }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
-  const handleChangeQuickLinks = (e, index, field) => {
-    const updatedQuickLinks = [...footerData.quickLinks];
-    updatedQuickLinks[index][field] = e.target.value;
-    setFooterData({
-      ...footerData,
-      quickLinks: updatedQuickLinks,
-    });
+  const handleQuickLinksChange = (index, key, value) => {
+    const updatedQuickLinks = [...formData.quickLinks];
+    updatedQuickLinks[index][key] = value;
+    setFormData(prevState => ({
+      ...prevState,
+      quickLinks: updatedQuickLinks
+    }));
   };
 
-  const handleAddQuickLink = () => {
-    setFooterData({
-      ...footerData,
-      quickLinks: [
-        ...footerData.quickLinks,
-        { text: '', url: '' },
-      ],
-    });
+  const handleLocationChange = (index, value) => {
+    const updatedLocations = [...formData.locations];
+    updatedLocations[index] = value;
+    setFormData(prevState => ({
+      ...prevState,
+      locations: updatedLocations
+    }));
   };
 
-  const handleRemoveQuickLink = (index) => {
-    const updatedQuickLinks = [...footerData.quickLinks];
-    updatedQuickLinks.splice(index, 1);
-    setFooterData({
-      ...footerData,
-      quickLinks: updatedQuickLinks,
-    });
+  const handleLogoChange = (e) => {
+    const file = e.target.files[0];
+    setFormData(prevState => ({
+      ...prevState,
+      logo: file
+    }));
   };
 
-  const handleFormSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:5000/api/footer/edit/${footerData._id}`, {
-        description: footerData.description,
-        socialLinks: footerData.socialLinks,
-        quickLinks: footerData.quickLinks, // Ensure quickLinks is in the correct format
-        contactInfo: footerData.contactInfo,
-        copyright: footerData.copyright,
+      const formDataToSend = new FormData();
+      formDataToSend.append('descriptionText', formData.descriptionText);
+      formDataToSend.append('facebook', formData.facebook);
+      formDataToSend.append('twitter', formData.twitter);
+      formDataToSend.append('linkedin', formData.linkedin);
+      formDataToSend.append('instagram', formData.instagram);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('copyright', formData.copyright);
+      formDataToSend.append('quickLinks', JSON.stringify(formData.quickLinks));
+      formDataToSend.append('locations', JSON.stringify(formData.locations));
+      if (formData.logo) {
+        formDataToSend.append('logo', formData.logo);
+      }
+
+      await axios.put(`http://localhost:5000/api/footer/edit/${footerData._id}`, formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       });
 
-      if (response.status === 200) {
-        console.log('Footer data updated successfully.');
-        fetchFooterData(); // Refresh data after update
-      } else {
-        console.error('Update failed:', response.statusText);
-      }
+      setEditing(false);
+      // Refresh data after update
+      const response = await axios.get('http://localhost:5000/api/footer'); // Replace with your actual API endpoint
+      setFooterData(response.data);
     } catch (error) {
-      console.error('Update error:', error);
-      if (error.response) {
-        console.error('Server response:', error.response.data);
-      } else if (error.request) {
-        console.error('No response received:', error.request);
-      } else {
-        console.error('Request setup error:', error.message);
-      }
+      console.error('Error updating footer data:', error);
     }
   };
 
+  if (!footerData) {
+    return null; // Add loading indicator or placeholder while fetching data
+  }
+
   return (
-    <div className="footer-panel">
-      <h2>Edit Footer</h2>
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          <label>Description Text:</label>
-          <input
-            type="text"
-            value={footerData.description.text}
-            onChange={(e) => setFooterData({ ...footerData, description: { ...footerData.description, text: e.target.value } })}
-          />
-        </div>
-        <div>
-          <label>Social Links:</label>
-          <input
-            type="text"
-            value={footerData.socialLinks.facebook}
-            onChange={(e) => setFooterData({ ...footerData, socialLinks: { ...footerData.socialLinks, facebook: e.target.value } })}
-            placeholder="Facebook"
-          />
-          <input
-            type="text"
-            value={footerData.socialLinks.twitter}
-            onChange={(e) => setFooterData({ ...footerData, socialLinks: { ...footerData.socialLinks, twitter: e.target.value } })}
-            placeholder="Twitter"
-          />
-          <input
-            type="text"
-            value={footerData.socialLinks.linkedin}
-            onChange={(e) => setFooterData({ ...footerData, socialLinks: { ...footerData.socialLinks, linkedin: e.target.value } })}
-            placeholder="LinkedIn"
-          />
-          <input
-            type="text"
-            value={footerData.socialLinks.instagram}
-            onChange={(e) => setFooterData({ ...footerData, socialLinks: { ...footerData.socialLinks, instagram: e.target.value } })}
-            placeholder="Instagram"
-          />
-        </div>
-        <div>
-          <label>Quick Links:</label>
-          {footerData.quickLinks.map((link, index) => (
-            <div key={index}>
-              <input
-                type="text"
-                value={link.text}
-                onChange={(e) => handleChangeQuickLinks(e, index, 'text')}
-                placeholder="Text"
-              />
-              <input
-                type="text"
-                value={link.url}
-                onChange={(e) => handleChangeQuickLinks(e, index, 'url')}
-                placeholder="URL"
-              />
-              {index > 0 && (
-                <button type="button" onClick={() => handleRemoveQuickLink(index)}>Remove</button>
-              )}
+    <div className="panel-container">
+      <div className="panel-button">
+              <aside className="panel-widget-area">
+                <section className="panel-list">
+                    <div className="panel-btn" >
+                    <Link to="/admin" ><h3>Home Page</h3></Link>
+                      <ul>
+                        <li>
+                          <Link
+                            to="/admin/nav-panel"
+                          >
+                            Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/about-section"
+                          >
+                            About <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/funFacts"
+                          >
+                            Fun Facts <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/OurSpecialisation"
+                          >
+                            Our Specialisation <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/wycu"
+                          >
+                            Why You Choose Us <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/services"
+                          >
+                            Services <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/cta"
+                          >
+                            CTA <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/partners"
+                          >
+                            Partners Image <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/blog"
+                          >
+                            Blogs <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/footer"
+                          >
+                            Footer <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                </section>
+              </aside>
             </div>
-          ))}
-          <button type="button" onClick={handleAddQuickLink}>Add Quick Link</button>
+      <div className="panel-form">
+      <footer className='footer-area'>
+        <div className="container-footer">
+          <div className="footer-row">
+            <div className="single-footer-widget">
+              <div className="Description">
+                {editing ? (
+                  <>
+                    <input type="file" name="logo" onChange={handleLogoChange} accept="image/*" />
+                    {formData.logo && <img src={URL.createObjectURL(formData.logo)} alt="footer-logo-img" />}
+                    <input type="text" name="descriptionText" value={formData.descriptionText} onChange={handleInputChange} />
+                  </>
+                ) : (
+                  <>
+                    {footerData.description.logo && <img src={footerData.description.logo} alt="footer-logo-img" />}
+                    <p>{footerData.description.text}</p>
+                  </>
+                )}
+              </div>
+              <ul className="footer-social">
+                <li>
+                  {editing ? (
+                    <input type="text" name="facebook" value={formData.facebook} onChange={handleInputChange} />
+                  ) : (
+                    <a href={footerData.socialLinks.facebook}><FaFacebook /></a>
+                  )}
+                </li>
+                <li>
+                  {editing ? (
+                    <input type="text" name="twitter" value={formData.twitter} onChange={handleInputChange} />
+                  ) : (
+                    <a href={footerData.socialLinks.twitter}><FaTwitter /> </a>
+                  )}
+                </li>
+                <li>
+                  {editing ? (
+                    <input type="text" name="linkedin" value={formData.linkedin} onChange={handleInputChange} />
+                  ) : (
+                    <a href={footerData.socialLinks.linkedin}><FaLinkedin /> </a>
+                  )}
+                </li>
+                <li>
+                  {editing ? (
+                    <input type="text" name="instagram" value={formData.instagram} onChange={handleInputChange} />
+                  ) : (
+                    <a href={footerData.socialLinks.instagram}><FaInstagram /> </a>
+                  )}
+                </li>
+              </ul>
+            </div>
+            <div className="single-footer-widget">
+              <h3>QUICK LINKS</h3>
+              <ul className='footer-quick-links'>
+                {editing ? (
+                  formData.quickLinks.map((link, index) => (
+                    <li key={index}>
+                      <input type="text" value={link.text} onChange={(e) => handleQuickLinksChange(index, 'text', e.target.value)} />
+                      <input type="text" value={link.url} onChange={(e) => handleQuickLinksChange(index, 'url', e.target.value)} />
+                    </li>
+                  ))
+                ) : (
+                  footerData.quickLinks.map((link, index) => (
+                    <li key={index}><a href={link.url}>{link.text}</a></li>
+                  ))
+                )}
+              </ul>
+            </div>
+            <div className="single-footer-widget">
+              <h3>CONTACT INFO</h3>
+              <ul className="footer-contact-info">
+                {editing ? (
+                  formData.locations.map((location, index) => (
+                    <li key={index}>
+                      <input type="text" value={location} onChange={(e) => handleLocationChange(index, e.target.value)} />
+                    </li>
+                  ))
+                ) : (
+                  footerData.contactInfo.locations.map((location, index) => (
+                    <li key={index}>
+                      <span><MdOutlineLocationOn /></span> {location}
+                    </li>
+                  ))
+                )}
+                <li>
+                  <span><MdPhone /></span> {editing ? (
+                    <input type="text" name="phone" value={formData.phone} onChange={handleInputChange} />
+                  ) : (
+                    footerData.contactInfo.phone
+                  )}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="edit-button">
+            {editing ? (
+              <button onClick={handleSubmit}>Save Changes</button>
+            ) : (
+              <button onClick={() => setEditing(true)}><MdEdit /> Edit Footer</button>
+            )}
+          </div>
         </div>
-        <div>
-          <label>Contact Info:</label>
-          <input
-            type="text"
-            value={footerData.contactInfo.location1}
-            onChange={(e) => setFooterData({ ...footerData, contactInfo: { ...footerData.contactInfo, location1: e.target.value } })}
-            placeholder="Location 1"
-          />
-          <input
-            type="text"
-            value={footerData.contactInfo.location2}
-            onChange={(e) => setFooterData({ ...footerData, contactInfo: { ...footerData.contactInfo, location2: e.target.value } })}
-            placeholder="Location 2"
-          />
-          <input
-            type="text"
-            value={footerData.contactInfo.phone}
-            onChange={(e) => setFooterData({ ...footerData, contactInfo: { ...footerData.contactInfo, phone: e.target.value } })}
-            placeholder="Phone"
-          />
-        </div>
-        <div>
-          <label>Copyright:</label>
-          <input
-            type="text"
-            value={footerData.copyright}
-            onChange={(e) => setFooterData({ ...footerData, copyright: e.target.value })}
-          />
-        </div>
-        <button type="submit">Update Footer</button>
-      </form>
+      </footer>
+      </div>
     </div>
   );
-};
+}
 
 export default FooterPanel;

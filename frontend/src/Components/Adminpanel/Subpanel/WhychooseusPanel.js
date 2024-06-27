@@ -116,7 +116,7 @@ const WhyChooseUsPanel = () => {
               <aside className="panel-widget-area">
                 <section className="panel-list">
                     <div className="panel-btn" >
-                    <h3>Home Page</h3>
+                    <Link to="/admin" ><h3>Home Page</h3></Link>
                       <ul>
                         <li>
                           <Link

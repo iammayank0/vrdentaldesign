@@ -18,7 +18,7 @@ const upload = multer({
 
 // POST endpoint for adding new footer data
 router.post('/footer/add', upload.single('logo'), async (req, res) => {
-  const { descriptionText, facebook, twitter, linkedin, instagram, quickLinks, location1, location2, phone, copyright } = req.body;
+  const { descriptionText, facebook, twitter, linkedin, instagram, quickLinks, locations, phone, copyright } = req.body;
 
   try {
     // Handle logo image upload if provided
@@ -44,6 +44,17 @@ router.post('/footer/add', upload.single('logo'), async (req, res) => {
       return res.status(400).json({ message: 'Invalid quickLinks format' });
     }
 
+    // Parse locations if it's a JSON stringified array
+    let parsedLocations;
+    try {
+      parsedLocations = JSON.parse(locations);
+      if (!Array.isArray(parsedLocations)) {
+        return res.status(400).json({ message: 'locations must be an array' });
+      }
+    } catch (error) {
+      return res.status(400).json({ message: 'Invalid locations format' });
+    }
+
     // Create a new Footer document
     const newFooter = new Footer({
       description: {
@@ -58,8 +69,7 @@ router.post('/footer/add', upload.single('logo'), async (req, res) => {
       },
       quickLinks: parsedQuickLinks,
       contactInfo: {
-        location1,
-        location2,
+        locations: parsedLocations,
         phone,
       },
       copyright,
@@ -78,7 +88,7 @@ router.post('/footer/add', upload.single('logo'), async (req, res) => {
 // PUT endpoint for editing existing footer data
 router.put('/footer/edit/:id', upload.single('logo'), async (req, res) => {
   const { id } = req.params;
-  const { descriptionText, facebook, twitter, linkedin, instagram, quickLinks, location1, location2, phone, copyright } = req.body;
+  const { descriptionText, facebook, twitter, linkedin, instagram, quickLinks, locations, phone, copyright } = req.body;
 
   try {
     // Find the existing footer entry by ID
@@ -126,11 +136,16 @@ router.put('/footer/edit/:id', upload.single('logo'), async (req, res) => {
         return res.status(400).json({ message: 'Invalid quickLinks format' });
       }
     }
-    if (location1) {
-      existingFooter.contactInfo.location1 = location1;
-    }
-    if (location2) {
-      existingFooter.contactInfo.location2 = location2;
+    if (locations) {
+      try {
+        const parsedLocations = JSON.parse(locations);
+        if (!Array.isArray(parsedLocations)) {
+          return res.status(400).json({ message: 'locations must be an array' });
+        }
+        existingFooter.contactInfo.locations = parsedLocations;
+      } catch (error) {
+        return res.status(400).json({ message: 'Invalid locations format' });
+      }
     }
     if (phone) {
       existingFooter.contactInfo.phone = phone;
@@ -164,6 +179,5 @@ router.get('/footer', async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch footer entry', error: error.message });
   }
 });
-
 
 module.exports = router;
