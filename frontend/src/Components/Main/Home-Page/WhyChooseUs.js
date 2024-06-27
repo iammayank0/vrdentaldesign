@@ -1,38 +1,38 @@
 import React, { useEffect, useState } from 'react';
+import axiosInstance from '../../../axiosInstance';
 import '../Main.css';
 
 const WhyChooseUs = () => {
+  const [content, setContent] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    const [content, setContent] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        // Fetch Why Choose Us content from the backend
-        const fetchWhyChooseUsContent = async () => {
-          try {
-            const response = await fetch('http://localhost:5000/api/whychooseus');
-            if (!response.ok) {
-              throw new Error('Failed to fetch Why Choose Us content');
-            }
-            const data = await response.json();
-            setContent(data);
-          } catch (error) {
-            console.error('Error fetching Why Choose Us content:', error);
-          } finally {
-            setLoading(false);
-          }
-        };
-    
-        fetchWhyChooseUsContent();
-      }, []);
-
-      if (loading) {
-        return <div>Loading...</div>;
+  useEffect(() => {
+    // Fetch Why Choose Us content from the backend
+    const fetchWhyChooseUsContent = async () => {
+      try {
+        const response = await axiosInstance.get('/whychooseus');
+        if (response.status !== 200) {
+          throw new Error('Failed to fetch Why Choose Us content');
+        }
+        const data = response.data;
+        setContent(data);
+      } catch (error) {
+        console.error('Error fetching Why Choose Us content:', error);
+      } finally {
+        setLoading(false);
       }
-    
-      if (!content) {
-        return <div>No content available</div>;
-      }
+    };
+
+    fetchWhyChooseUsContent();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!content) {
+    return <div>No content available</div>;
+  }
 
   return (
     <div>
@@ -64,7 +64,7 @@ const WhyChooseUs = () => {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default WhyChooseUs
+export default WhyChooseUs;

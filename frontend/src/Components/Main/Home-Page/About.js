@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import '../Main.css';
 
 import { FaCheck } from 'react-icons/fa';
@@ -11,7 +11,7 @@ const About = () => {
     useEffect(() => {
         const fetchAboutContent = async () => {
           try {
-            const response = await axios.get('http://localhost:5000/api/about');
+            const response = await axiosInstance.get('/about');
             const data = response.data;
     
             if (typeof data.services === 'string') {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import Navbar from '../../Navbar/Navbar';
 import Footer from "../../Footer/Footer";
 import { Link } from 'react-router-dom';
@@ -12,7 +12,7 @@ const Gallery = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/galleryimg');
+        const response = await axiosInstance.get('/galleryimg');
         setImages(response.data); 
       } catch (error) {
         console.error('Failed to fetch gallery images:', error);
@@ -21,7 +21,7 @@ const Gallery = () => {
 
     const fetchBackgroundImage = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/gallerybg');
+        const response = await axiosInstance.get('/gallerybg');
         
         setBackgroundImage(response.data.length > 0 ? response.data[0].BackgroundImage : '');
       } catch (error) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from '../../../axiosInstance';
 import "../Main.css";
 import ServiceVideo from "../../../Assets/service.mp4"
 
@@ -11,7 +11,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServiceContents = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/services");
+        const response = await axiosInstance.get('/services');
         setServiceContents(response.data);
       } catch (error) {
         console.error("Error fetching service contents:", error);

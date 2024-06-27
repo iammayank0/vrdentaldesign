@@ -1,9 +1,14 @@
-// backend/server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path');
+
+
+// Load environment variables from .env file
+dotenv.config({ path: path.join(__dirname, 'config.env') });
+
 const navbarRoutes = require('./routes/navbar');
 const bannerRoutes = require('./routes/banner');
 const enquiryRoutes = require('./routes/enquiry');
@@ -21,24 +26,23 @@ const AboutPageRoutes = require('./routes/page/aboutpage');
 const ServicePageRoutes = require('./routes/page/Service-page');
 const SingleServiceRoutes = require('./routes/page/Single-service');
 
-dotenv.config();
-
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT; 
 
 app.use(bodyParser.json());
 app.use(cors());
 
-const MONGODB_URI = 'mongodb+srv://iammayank1628:vrdental%401234@vrdentaldesign.p2gimxu.mongodb.net/';
+const MONGODB_URI = process.env.MONGODB_URI; 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
 })
   .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.log('MongoDB connection error: ', err));
+  .catch((err) => console.error('MongoDB connection error: ', err));
+
 
 app.use('/api', navbarRoutes);
 app.use('/api', bannerRoutes);
-app.use('/api/enquiry', enquiryRoutes);
+app.use('/api/enquiry', enquiryRoutes); 
 app.use('/api', aboutRoutes);
 app.use('/api', factRoutes);
 app.use('/api', serviceRoutes);

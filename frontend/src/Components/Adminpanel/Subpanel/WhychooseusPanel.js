@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import './Panel.css';
@@ -25,7 +25,7 @@ const WhyChooseUsPanel = () => {
 
   const fetchWhyChooseUsContent = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/whychooseus');
+      const response = await axiosInstance.get('/whychooseus');
       setContent(response.data);
     } catch (error) {
       console.error('Error fetching Why Choose Us content:', error);
@@ -81,7 +81,7 @@ const WhyChooseUsPanel = () => {
         formDataToSend.append(`feature${index + 1}Image`, feature.image);
       });
 
-      const response = await axios.put(`http://localhost:5000/api/whychooseus/${content._id}`, formDataToSend, {
+      const response = await axiosInstance.put(`/whychooseus/${content._id}`, formDataToSend, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'multipart/form-data',

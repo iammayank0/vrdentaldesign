@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import { Link } from 'react-router-dom';
 import Navbar from '../../Navbar/Navbar';
 import About from '../../Main/Home-Page/About';
@@ -31,9 +31,9 @@ const AboutPage = () => {
     const fetchData = async () => {
       try {
         const [bgResponse, pageResponse, usResponse] = await Promise.all([
-          axios.get('http://localhost:5000/api/backgroundcontent'),
-          axios.get('http://localhost:5000/api/aboutpagecontent'),
-          axios.get('http://localhost:5000/api/aboutuscontent'),
+          axiosInstance.get('/backgroundcontent'),
+          axiosInstance.get('/aboutpagecontent'),
+          axiosInstance.get('/aboutuscontent'),
         ]);
 
         const bgData = bgResponse.data[0] || {};

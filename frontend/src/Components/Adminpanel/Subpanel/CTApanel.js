@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import './Panel.css';
@@ -20,7 +20,7 @@ const CTAPanel = () => {
 
   const fetchCTAContent = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/CTA');
+      const response = await axiosInstance.get('/CTA');
       if (response.data.length > 0) {
         setCtaContent(response.data[0]);
       }
@@ -61,7 +61,7 @@ const CTAPanel = () => {
         formDataToSend.append('CTAbg', formData.CTAbg);
       }
 
-      const response = await axios.put(`http://localhost:5000/api/CTA/${ctaContent._id}`, formDataToSend, {
+      const response = await axiosInstance.put(`/CTA/${ctaContent._id}`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

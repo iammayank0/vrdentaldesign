@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axiosInstance from '../../../axiosInstance';
 import '../Main.css';
 
 const Partner = () => {
@@ -19,11 +20,9 @@ const Partner = () => {
       }
     };
 
-
     handleResize();
 
     window.addEventListener('resize', handleResize);
-
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -31,14 +30,13 @@ const Partner = () => {
   }, []);
 
   useEffect(() => {
-
     const fetchPartners = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/partner'); 
-        if (!response.ok) {
+        const response = await axiosInstance.get('/partner'); 
+        if (response.status !== 200) {
           throw new Error('Failed to fetch partners');
         }
-        const data = await response.json();
+        const data = response.data;
         setPartners(data);
       } catch (error) {
         console.error('Error fetching partners:', error);
@@ -70,7 +68,7 @@ const Partner = () => {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default Partner
+export default Partner;

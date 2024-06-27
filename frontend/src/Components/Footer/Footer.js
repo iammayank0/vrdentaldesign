@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Footer.css';
-import axios from 'axios'; 
+import axiosInstance from '../../axiosInstance';
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import {  MdOutlineCopyright } from "react-icons/md";
 
@@ -11,7 +11,7 @@ const Footer = () => {
     // Fetch footer data from your backend API
     const fetchFooterData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/footer'); // Replace '/api/footer' with your actual API endpoint
+        const response = await axiosInstance.get('/footer');
         setFooterData(response.data);
       } catch (error) {
         console.error('Error fetching footer data:', error);

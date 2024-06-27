@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from '../../../axiosInstance';
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import "./Panel.css";
@@ -25,7 +25,7 @@ const AboutPanel = () => {
 
   const fetchAboutContent = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/about");
+      const response = await axiosInstance.get("/about");
       setAboutContent(response.data);
     } catch (error) {
       console.error("Error fetching About content:", error);
@@ -48,7 +48,7 @@ const AboutPanel = () => {
         subTitle,
         title,
         description,
-        services: services.join("\n"), // Convert services array to newline separated string
+        services: services.join("\n"), 
         companyName,
         founders,
         img1: null,
@@ -82,8 +82,8 @@ const AboutPanel = () => {
         formDataToSend.append("signImage", formData.signImage);
       }
 
-      const response = await axios.put(
-        `http://localhost:5000/api/about/${aboutContent._id}`,
+      const response = await axiosInstance.put(
+        `/about/${aboutContent._id}`,
         formDataToSend,
         {
           headers: {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import '../Main.css';
 
 
@@ -13,7 +13,7 @@ const Doctor = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/doctors'); 
+        const response = await axiosInstance.get('/doctors'); 
         setDoctors(response.data);
       } catch (error) {
         setError('Error fetching doctors');

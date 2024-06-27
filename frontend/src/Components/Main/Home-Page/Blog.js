@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import '../Main.css';
 
 import { FaRegCalendarAlt } from "react-icons/fa";
@@ -15,8 +15,8 @@ const Blog = () => {
     const fetchBlogData = async () => {
       try {
         const [blogsResponse, blogTextResponse] = await Promise.all([
-          axios.get('http://localhost:5000/api/blogs'),
-          axios.get('http://localhost:5000/api/blog-texts')
+          axiosInstance.get('/blogs'),
+          axiosInstance.get('/blog-texts')
         ]);
 
         setBlogs(blogsResponse.data);

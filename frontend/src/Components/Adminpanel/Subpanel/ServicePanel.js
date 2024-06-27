@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import './Panel.css';
@@ -26,7 +26,7 @@ const ServicePanel = () => {
 
   const fetchServiceContents = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/services');
+      const response = await axiosInstance.get('/services');
       setServiceContents(response.data);
       if (response.data.length > 0) {
         const firstService = response.data[0];
@@ -95,7 +95,7 @@ const ServicePanel = () => {
         formDataToSend.append('img4', formData.img4);
       }
 
-      const response = await axios.put(`http://localhost:5000/api/services/${service._id}`, formDataToSend, {
+      const response = await axiosInstance.put(`/services/${service._id}`, formDataToSend, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'multipart/form-data',

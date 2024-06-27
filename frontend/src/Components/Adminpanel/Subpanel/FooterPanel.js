@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
@@ -22,10 +22,10 @@ const FooterPanel = () => {
   });
 
   useEffect(() => {
-    // Fetch footer data from your backend API
+
     const fetchFooterData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/footer'); // Replace with your actual API endpoint
+        const response = await axiosInstance.get('/footer'); 
         setFooterData(response.data);
         setFormData({
           descriptionText: response.data.description.text,
@@ -34,7 +34,7 @@ const FooterPanel = () => {
           linkedin: response.data.socialLinks.linkedin,
           instagram: response.data.socialLinks.instagram,
           quickLinks: response.data.quickLinks.map(link => ({ text: link.text, url: link.url })),
-          locations: response.data.contactInfo.locations.slice(), // Create a copy of locations array
+          locations: response.data.contactInfo.locations.slice(), 
           phone: response.data.contactInfo.phone,
           copyright: response.data.copyright,
         });
@@ -97,15 +97,15 @@ const FooterPanel = () => {
         formDataToSend.append('logo', formData.logo);
       }
 
-      await axios.put(`http://localhost:5000/api/footer/edit/${footerData._id}`, formDataToSend, {
+      await axiosInstance.put(`/footer/edit/${footerData._id}`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
 
       setEditing(false);
-      // Refresh data after update
-      const response = await axios.get('http://localhost:5000/api/footer'); // Replace with your actual API endpoint
+      
+      const response = await axiosInstance.get('/footer'); 
       setFooterData(response.data);
     } catch (error) {
       console.error('Error updating footer data:', error);
@@ -113,7 +113,7 @@ const FooterPanel = () => {
   };
 
   if (!footerData) {
-    return null; // Add loading indicator or placeholder while fetching data
+    return null; 
   }
 
   return (
