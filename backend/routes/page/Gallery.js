@@ -199,4 +199,20 @@ router.put('/gallerybg/:id', upload.fields([{ name: 'BackgroundImage', maxCount:
     }
   });
 
+  router.delete('/galleryimg/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deletedGalleryImg = await GalleryContent.findByIdAndDelete(id);
+  
+      if (!deletedGalleryImg) {
+        return res.status(404).json({ message: 'Gallery image not found' });
+      }
+  
+      res.status(204).end(); // 204 No Content if successful
+    } catch (error) {
+      console.error('Error deleting gallery image:', error);
+      res.status(500).json({ message: 'Error deleting gallery image', error: error.message });
+    }
+  });
+
 module.exports = router;

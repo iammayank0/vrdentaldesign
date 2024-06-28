@@ -1,72 +1,90 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
+import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
 
 const AboutPagePanel = () => {
-  const [aboutBg, setAboutBg] = useState({});
-  const [aboutPageContent, setAboutPageContent] = useState({});
-  const [aboutUsContent, setAboutUsContent] = useState({});
+  const [aboutBg, setAboutBg] = useState([]);
+  const [aboutPageContent, setAboutPageContent] = useState([]);
+  const [aboutUsContent, setAboutUsContent] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch all data on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [bgResponse, pageContentResponse, usContentResponse] = await Promise.all([
-          axios.get('/api/aboutbg'),
-          axios.get('/api/aboutpagecontent'),
-          axios.get('/api/aboutuscontent')
+          axiosInstance.get('/backgroundcontent'),
+          axiosInstance.get('/aboutpagecontent'),
+          axiosInstance.get('/aboutuscontent')
         ]);
 
         setAboutBg(bgResponse.data);
         setAboutPageContent(pageContentResponse.data);
         setAboutUsContent(usContentResponse.data);
         setLoading(false);
+
       } catch (error) {
         setError(error.message);
         setLoading(false);
+        console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
   }, []);
 
-  // Handle updating About Background
-  const updateAboutBg = async (formData) => {
+  const updateAboutBg = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('BackgroundImage', e.target.files[0]);
+
     try {
-      const response = await axios.put(`/api/aboutbg/${aboutBg._id}`, formData, {
+      const response = await axiosInstance.put(`/aboutbg/${aboutBg[0]._id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setAboutBg(response.data);
-      // Handle success or feedback
+      setAboutBg([response.data]);
+      console.log('Updated aboutBg:', response.data);
     } catch (error) {
-      // Handle error
       console.error('Failed to update About Background:', error);
     }
   };
 
-  // Handle updating About Page Content
-  const updateAboutPageContent = async (updatedContent) => {
+  const updateAboutPageContent = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const updatedContent = {
+      title1: formData.get('title1'),
+      description1: formData.get('description1'),
+      title2: formData.get('title2'),
+      description2: formData.get('description2'),
+    };
+
     try {
-      const response = await axios.put(`/api/aboutpagecontent/${aboutPageContent._id}`, updatedContent);
-      setAboutPageContent(response.data);
-      // Handle success or feedback
+      const response = await axiosInstance.put(`/aboutpagecontent/${aboutPageContent[0]._id}`, updatedContent);
+      setAboutPageContent([response.data]);
+      console.log('Updated aboutPageContent:', response.data);
     } catch (error) {
-      // Handle error
       console.error('Failed to update About Page Content:', error);
     }
   };
 
-  // Handle updating About Us Content
-  const updateAboutUsContent = async (updatedContent) => {
+  const updateAboutUsContent = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const updatedContent = {
+      title: formData.get('title'),
+      heading: formData.get('heading'),
+      description: formData.get('description'),
+    };
+
     try {
-      const response = await axios.put(`/api/aboutuscontent/${aboutUsContent._id}`, updatedContent);
-      setAboutUsContent(response.data);
-      // Handle success or feedback
+      const response = await axiosInstance.put(`/aboutuscontent/${aboutUsContent[0]._id}`, updatedContent);
+      setAboutUsContent([response.data]);
+      console.log('Updated aboutUsContent:', response.data);
     } catch (error) {
-      // Handle error
       console.error('Failed to update About Us Content:', error);
     }
   };
@@ -75,76 +93,113 @@ const AboutPagePanel = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div>
+    <div className="panel-container">
+      <div className="panel-button">
+              <aside className="panel-widget-area">
+                <section className="panel-list">
+                    <div className="panel-btn" >
+                    <Link to="/admin" ><h3>Home Page</h3></Link>
+                    <ul>
+                        <li>
+                          <Link
+                            to="/admin/about-page"
+                          >
+                            About Page <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/gallery"
+                          >
+                            Gallery <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/Service-page"
+                          >
+                            Service Page <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/ContactUs"
+                          >
+                            Contact Us <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/team"
+                          >
+                            Team <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                </section>
+              </aside>
+            </div>
+      <div className="panel-form">
+      <div className='about-page-panel'>
       {/* About Background Section */}
       <section>
         <h2>About Background</h2>
-        <img src={aboutBg.BackgroundImage} alt="Background" style={{ maxWidth: '100%' }} />
-        <input type="file" onChange={(e) => updateAboutBg(new FormData(e.target.form))} />
+        {aboutBg.length > 0 && aboutBg[0].BackgroundImage && (
+          <img src={aboutBg[0].BackgroundImage} alt="Background" style={{ maxWidth: '100%' }} />
+        )}
+        <input type="file" onChange={updateAboutBg} />
       </section>
 
       {/* About Page Content Section */}
       <section>
         <h2>About Page Content</h2>
-        <form onSubmit={(e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target);
-          const updatedContent = {
-            title1: formData.get('title1'),
-            description1: formData.get('description1'),
-            title2: formData.get('title2'),
-            description2: formData.get('description2'),
-          };
-          updateAboutPageContent(updatedContent);
-        }}>
-          <div>
-            <label>Title 1:</label>
-            <input type="text" name="title1" defaultValue={aboutPageContent.title1} />
-          </div>
-          <div>
-            <label>Description 1:</label>
-            <textarea name="description1" defaultValue={aboutPageContent.description1}></textarea>
-          </div>
-          <div>
-            <label>Title 2:</label>
-            <input type="text" name="title2" defaultValue={aboutPageContent.title2} />
-          </div>
-          <div>
-            <label>Description 2:</label>
-            <textarea name="description2" defaultValue={aboutPageContent.description2}></textarea>
-          </div>
-          <button type="submit">Update About Page Content</button>
-        </form>
+        {aboutPageContent.length > 0 && (
+          <form onSubmit={updateAboutPageContent}>
+            <div>
+              <label>Title 1:</label>
+              <input type="text" name="title1" defaultValue={aboutPageContent[0].title1} />
+            </div>
+            <div>
+              <label>Description 1:</label>
+              <textarea name="description1" defaultValue={aboutPageContent[0].description1}></textarea>
+            </div>
+            <div>
+              <label>Title 2:</label>
+              <input type="text" name="title2" defaultValue={aboutPageContent[0].title2} />
+            </div>
+            <div>
+              <label>Description 2:</label>
+              <textarea name="description2" defaultValue={aboutPageContent[0].description2}></textarea>
+            </div>
+            <button type="submit">Update About Page Content</button>
+          </form>
+        )}
       </section>
 
       {/* About Us Content Section */}
       <section>
         <h2>About Us Content</h2>
-        <form onSubmit={(e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target);
-          const updatedContent = {
-            title: formData.get('title'),
-            heading: formData.get('heading'),
-            description: formData.get('description'),
-          };
-          updateAboutUsContent(updatedContent);
-        }}>
-          <div>
-            <label>Title:</label>
-            <input type="text" name="title" defaultValue={aboutUsContent.title} />
-          </div>
-          <div>
-            <label>Heading:</label>
-            <input type="text" name="heading" defaultValue={aboutUsContent.heading} />
-          </div>
-          <div>
-            <label>Description:</label>
-            <textarea name="description" defaultValue={aboutUsContent.description}></textarea>
-          </div>
-          <button type="submit">Update About Us Content</button>
-        </form>
+        {aboutUsContent.length > 0 && (
+          <form onSubmit={updateAboutUsContent}>
+            <div>
+              <label>Title:</label>
+              <input type="text" name="title" defaultValue={aboutUsContent[0].title} />
+            </div>
+            <div>
+              <label>Heading:</label>
+              <input type="text" name="heading" defaultValue={aboutUsContent[0].heading} />
+            </div>
+            <div>
+              <label>Description:</label>
+              <textarea name="description" defaultValue={aboutUsContent[0].description}></textarea>
+            </div>
+            <button type="submit">Update About Us Content</button>
+          </form>
+        )}
       </section>
+    </div>
+      </div>
     </div>
   );
 };

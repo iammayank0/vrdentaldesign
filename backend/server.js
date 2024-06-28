@@ -25,17 +25,16 @@ const GalleryRoutes = require('./routes/page/Gallery');
 const AboutPageRoutes = require('./routes/page/aboutpage');
 const ServicePageRoutes = require('./routes/page/Service-page');
 const SingleServiceRoutes = require('./routes/page/Single-service');
+const BannerVideoRoutes = require('./routes/bannerVideo');
 
 const app = express();
-const PORT = process.env.PORT; 
+const PORT = process.env.PORT  || 5000; 
 
 app.use(bodyParser.json());
 app.use(cors());
 
 const MONGODB_URI = process.env.MONGODB_URI; 
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-})
+mongoose.connect(MONGODB_URI)
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error: ', err));
 
@@ -56,6 +55,7 @@ app.use('/api', GalleryRoutes);
 app.use('/api', AboutPageRoutes);
 app.use('/api', ServicePageRoutes);
 app.use('/api', SingleServiceRoutes);
+app.use('/api', BannerVideoRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
