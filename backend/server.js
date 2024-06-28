@@ -26,6 +26,8 @@ const AboutPageRoutes = require('./routes/page/aboutpage');
 const ServicePageRoutes = require('./routes/page/Service-page');
 const SingleServiceRoutes = require('./routes/page/Single-service');
 const BannerVideoRoutes = require('./routes/bannerVideo');
+const ServiceVideoRoutes = require('./routes/serviceVideo');
+
 
 const app = express();
 const PORT = process.env.PORT  || 5000; 
@@ -56,6 +58,7 @@ app.use('/api', AboutPageRoutes);
 app.use('/api', ServicePageRoutes);
 app.use('/api', SingleServiceRoutes);
 app.use('/api', BannerVideoRoutes);
+app.use('/api', ServiceVideoRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

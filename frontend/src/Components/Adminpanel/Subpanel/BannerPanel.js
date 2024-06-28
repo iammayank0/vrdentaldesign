@@ -2,80 +2,73 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../../axiosInstance';
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
-import './Panel.css';
 
-const CTAPanel = () => {
-  const [ctaContent, setCtaContent] = useState(null);
-  const [formData, setFormData] = useState({
-    CTAbg: null,
-    ctaTitle: '',
-    ctaSubtitle: '',
-    phoneNumber: '',
-  });
-  const [editing, setEditing] = useState(false);
+const BannerPanel = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [bannerVideos, setBannerVideos] = useState([]);
+  const [error, setError] = useState(null);
+  const [uploading, setUploading] = useState(false); 
 
   useEffect(() => {
-    fetchCTAContent();
+   
+    const fetchBannerVideos = async () => {
+      try {
+        const response = await axiosInstance.get('/banner-video');
+        if (response.data && response.data.length > 0) {
+          setBannerVideos(response.data);
+          setCurrentVideoIndex(0); 
+        } else {
+          setError('No videos found.');
+        }
+      } catch (error) {
+        console.error('Error fetching banner videos:', error);
+        setError('Failed to fetch banner videos.');
+      }
+    };
+
+    fetchBannerVideos();
   }, []);
 
-  const fetchCTAContent = async () => {
-    try {
-      const response = await axiosInstance.get('/CTA');
-      if (response.data.length > 0) {
-        setCtaContent(response.data[0]);
-      }
-    } catch (error) {
-      console.error('Error fetching CTA content:', error);
-    }
-  };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   const handleFileChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+    setSelectedFile(e.target.files[0]);
+    setError(null); // Clear previous errors on file change
   };
 
-  const handleEdit = () => {
-    if (ctaContent) {
-      const { ctaTitle, ctaSubtitle, phoneNumber } = ctaContent;
-      setFormData({
-        CTAbg: null,
-        ctaTitle,
-        ctaSubtitle,
-        phoneNumber,
-      });
-      setEditing(true);
+  const handleVideoUpload = async () => {
+    if (!selectedFile) {
+      setError('Please select a video file.');
+      return;
     }
-  };
 
-  const handleUpdate = async (e) => {
-    e.preventDefault();
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append('ctaTitle', formData.ctaTitle);
-      formDataToSend.append('ctaSubtitle', formData.ctaSubtitle);
-      formDataToSend.append('phoneNumber', formData.phoneNumber);
-      if (formData.CTAbg) {
-        formDataToSend.append('CTAbg', formData.CTAbg);
-      }
+      setUploading(true); 
 
-      const response = await axiosInstance.put(`/CTA/${ctaContent._id}`, formDataToSend, {
+      const formData = new FormData();
+      formData.append('Video', selectedFile);
+
+      const bannerVideoId = bannerVideos[currentVideoIndex]._id; 
+
+      const response = await axiosInstance.put(`/banner-video/${bannerVideoId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
       if (response.status === 200) {
-        fetchCTAContent();
-        setFormData({ CTAbg: null, ctaTitle: '', ctaSubtitle: '', phoneNumber: '' });
-        setEditing(false);
+        const updatedVideo = response.data;
+        const updatedVideos = [...bannerVideos];
+        updatedVideos[currentVideoIndex] = updatedVideo;
+        setBannerVideos(updatedVideos); 
+        setSelectedFile(null); 
       } else {
-        console.error('Update failed:', response.statusText);
+        setError('Failed to update banner video.');
       }
     } catch (error) {
-      console.error('Update error:', error);
+      console.error('Error uploading video:', error);
+      setError('Failed to upload video. Please try again.');
+    } finally {
+      setUploading(false); 
     }
   };
 
@@ -170,40 +163,30 @@ const CTAPanel = () => {
               </aside>
             </div>
       <div className="panel-form">
-      <div className="Cta-panel-container">
-      <h2 className="cta-panel-heading">CTA Panel</h2>
-      <form className="admin-form" onSubmit={handleUpdate}>
-        <div>
-          <label htmlFor="CTAbg">Background Image:</label>
-          <input type="file" name="CTAbg" onChange={handleFileChange} accept="image/*" />
-        </div>
-        <div>
-          <label htmlFor="ctaTitle">CTA Title:</label>
-          <input type="text" name="ctaTitle" value={formData.ctaTitle} onChange={handleChange} placeholder="CTA Title" required />
-        </div>
-        <div>
-          <label htmlFor="ctaSubtitle">CTA Subtitle:</label>
-          <input type="text" name="ctaSubtitle" value={formData.ctaSubtitle} onChange={handleChange} placeholder="CTA Subtitle" required />
-        </div>
-        <div>
-          <label htmlFor="phoneNumber">Phone Number:</label>
-          <input type="text" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} placeholder="Phone Number" required />
-        </div>
-        <button type="submit">Update</button>
-        {editing && <button type="button" onClick={() => setEditing(false)}>Cancel</button>}
-      </form>
-      {ctaContent && !editing && (
-        <div>
-          <h3>{ctaContent.ctaTitle}</h3>
-          <p>{ctaContent.ctaSubtitle}</p>
-          <p>Phone Number: {ctaContent.phoneNumber}</p>
-          <button onClick={handleEdit}>Edit</button>
-        </div>
-      )}
+      <div className="banner-panel">
+      <h2>Banner Video Panel</h2>
+      <div>
+        <input type="file" onChange={handleFileChange} accept="video/mp4" />
+        <button onClick={handleVideoUpload} disabled={uploading}>
+          {uploading ? 'Uploading...' : 'Upload Video'}
+        </button>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+      </div>
+      <div>
+        <h3>Current Video:</h3>
+        {bannerVideos.length > 0 ? (
+          <video controls>
+            <source src={bannerVideos[currentVideoIndex].Video} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <p>No videos found.</p>
+        )}
+      </div>
     </div>
       </div>
     </div>
   );
 };
 
-export default CTAPanel;
+export default BannerPanel;

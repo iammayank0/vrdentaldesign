@@ -226,6 +226,13 @@ const NavPanel = () => {
               <Link to="/admin"><h3>Home Page</h3></Link>
               <ul>
                 <li><Link to="/admin/nav-panel">Navbar <div className="arrow-icn"><FaArrowRight /></div></Link></li>
+                <li>
+                          <Link
+                            to="/admin/banner"
+                          >
+                            Banner <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
                 <li><Link to="/admin/about-section">About <div className="arrow-icn"><FaArrowRight /></div></Link></li>
                 <li><Link to="/admin/funFacts">Fun Facts <div className="arrow-icn"><FaArrowRight /></div></Link></li>
                 <li><Link to="/admin/OurSpecialisation">Our Specialisation <div className="arrow-icn"><FaArrowRight /></div></Link></li>

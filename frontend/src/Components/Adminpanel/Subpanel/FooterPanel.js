@@ -133,6 +133,13 @@ const FooterPanel = () => {
                         </li>
                         <li>
                           <Link
+                            to="/admin/banner"
+                          >
+                            Banner <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
                             to="/admin/about-section"
                           >
                             About <div className="arrow-icn"><FaArrowRight /></div>
