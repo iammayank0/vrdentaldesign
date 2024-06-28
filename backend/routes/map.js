@@ -82,20 +82,20 @@ router.put('/map/:id', upload.single('Video'), async (req, res) => {
   
       const videoUrl = await uploadVideo(req.file.path);
   
-      const updatedBannerVideo = await BannerVideo.findByIdAndUpdate(
+      const updatedMapVideo = await MapVideo.findByIdAndUpdate(
         id,
         { Video: videoUrl },
         { new: true, runValidators: true }
       );
   
-      if (!updatedBannerVideo) {
-        return res.status(404).json({ message: 'Banner Video not found' });
+      if (!updatedMapVideo) {
+        return res.status(404).json({ message: 'Map Video not found' });
       }
   
-      res.status(200).json(updatedBannerVideo);
+      res.status(200).json(updatedMapVideo);
     } catch (error) {
-      console.error('Failed to update banner video:', error);
-      res.status(500).json({ message: 'Failed to update banner video', error: error.message });
+      console.error('Failed to update Map video:', error);
+      res.status(500).json({ message: 'Failed to update map video', error: error.message });
     }
   });
   

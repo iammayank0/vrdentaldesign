@@ -43,6 +43,7 @@ import AboutPagePanel from './Components/Adminpanel/PagePanels/AboutPagePanel';
 import GalleryPanel from './Components/Adminpanel/PagePanels/GalleryPanel';
 import ServicePagePanel from './Components/Adminpanel/PagePanels/ServicePagePanel';
 import BannerPanel from './Components/Adminpanel/Subpanel/BannerPanel';
+import MapVideoPanel from './Components/Adminpanel/PagePanels/MapVideoPanel'
 
 
 const App = () => {
@@ -209,6 +210,7 @@ const App = () => {
        <Route exact path='/admin/gallery' element={loggedIn ?<GalleryPanel/> : <Navigate to="/login" />}/>
        <Route exact path='/admin/Service-page' element={loggedIn ?<ServicePagePanel/> : <Navigate to="/login" />}/>
        <Route exact path='/admin/banner' element={loggedIn ?<BannerPanel/> : <Navigate to="/login" />}/>
+       <Route exact path='/admin/ContactUs' element={loggedIn ?<MapVideoPanel/> : <Navigate to="/login" />}/>
           
       </Routes>
     </Router>
