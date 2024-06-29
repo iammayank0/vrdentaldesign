@@ -27,17 +27,12 @@
     margin-bottom: 12px;
 }
 
-.services-btn ul li:hover{
+.services-btn ul li a:hover{
     background-color: #df3946;
     box-shadow: 0px 5px 28.5px 1.5px rgba(254, 35, 9, 0.2);
     color:white;
 }
-.services-btn ul :hover{
-    color:white;
-    
-
-}
-.services-btn ul li {
+.services-btn ul li a{
     display: block;
     text-transform: uppercase;
     box-shadow: 0px 0px 29px 0px rgba(102, 102, 102, 0.1);
