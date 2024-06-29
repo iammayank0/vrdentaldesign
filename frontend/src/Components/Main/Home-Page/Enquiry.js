@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../../axiosInstance';
 import '../Main.css';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { FaArrowRight } from 'react-icons/fa';
 import { CiUser, CiMail, CiPhone } from 'react-icons/ci';
 import { RiMessage2Line } from 'react-icons/ri';
@@ -14,6 +14,8 @@ const Enquiry = () => {
     message: ''
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -21,7 +23,19 @@ const Enquiry = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     console.log('Submitting form data:', formData);
+
+    // Basic phone number validation
+    if (formData.phone.length > 15 || formData.phone.length < 10) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Phone Number",
+        text: "Phone number should be between 10 and 15 digits",
+      });
+      setIsLoading(false);
+      return;
+    }
 
     const formattedData = {
       ...formData,
@@ -31,17 +45,13 @@ const Enquiry = () => {
     try {
       const response = await axiosInstance.post('/enquiry/submit', formattedData);
 
-      console.log('Response status:', response.status);
-
-      if (response.status !== 200) {
+      if (response.status < 200 || response.status >= 300) {
         throw new Error(response.data.message || `HTTP error! status: ${response.status}`);
       }
 
       const result = response.data;
       Swal.fire("Enquiry Submitted Successfully.");
       console.log('Success response:', result);
-
-    
 
       setFormData({
         name: '',
@@ -54,15 +64,15 @@ const Enquiry = () => {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        // color: "#df3946",
-        text: "Something went wrong!",
+        text: error.message || "Something went wrong!",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div>
-      {/* Enquiry form */}
       <section className='container'>
         <div className='content'>
           <span className='title'>ENQUIRY FORM</span>
@@ -98,7 +108,7 @@ const Enquiry = () => {
                 <CiPhone className="icon" />
                 <div className="separator">|</div>
                 <input
-                  type="number"
+                  type="text"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
@@ -120,8 +130,8 @@ const Enquiry = () => {
               />
             </div>
             <div className="enquiry-button">
-              <button type="submit" className="submit-button">
-                SEND ENQUIRY
+              <button type="submit" className="submit-button" disabled={isLoading}>
+                {isLoading ? 'Submitting...' : 'SEND ENQUIRY'}
                 <span className="icon--circle"><FaArrowRight /></span>
               </button>
             </div>
