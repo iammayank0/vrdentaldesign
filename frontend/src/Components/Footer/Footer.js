@@ -3,6 +3,7 @@ import './Footer.css';
 import axiosInstance from '../../axiosInstance';
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import {  MdOutlineCopyright } from "react-icons/md";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const [footerData, setFooterData] = useState(null);
@@ -29,8 +30,12 @@ const Footer = () => {
             <div className="footer-row">
               <div className="single-footer-widget">
                 <div className="Description">
-                  {footerData.description.logo && <img src={footerData.description.logo} alt="footer-logo-img" />}
-                  <p>{footerData.description.text}</p>
+                <Link to="/">
+                {footerData.description.logo && 
+                  <img src={footerData.description.logo} alt="footer-logo-img" />}
+          </Link>
+          <p>{footerData.description.text}</p>
+                  
                 </div>
                 <ul className="footer-social">
                   <li><a href={footerData.socialLinks.facebook}><FaFacebook /></a></li>

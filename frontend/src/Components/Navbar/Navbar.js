@@ -120,8 +120,10 @@ const Navbar = () => {
         </div>
       </div>
       <nav className={`main-nav ${isSticky ? 'sticky' : ''}`} ref={navbarRef} id='navbar'>
-        <div className="logo">
-          <img src={logoUrl} alt="logo" />
+        <div className="logo">    
+          <Link to="/">
+          <img src={logoUrl} alt="logo" />      
+          </Link>
         </div>
         <div className={`menu-link ${menuOpen ? 'hidden' : ''}`}>
           <ul>
