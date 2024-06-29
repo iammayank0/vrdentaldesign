@@ -1,7 +1,7 @@
 .image-gallery .gallery-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px; /* Adjust the gap as needed */
+  grid-template-columns: repeat(4, 20fr);
+  gap: 50px; /* Adjust the gap as needed */
 }
 
 .single-image {
@@ -10,9 +10,9 @@
 }
 
 .single-image {
-  transform: perspective(1500px) rotateY(10deg);
+  transform: perspective(1500px) rotateY(1deg);
   border-radius: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px; 
+  
 }
 .single-image img {
   width: 100%;
@@ -20,9 +20,12 @@
   display: block;
   transition: transform 0.5s ease; /* Smooth transition for transform property */
 }
-
+.single-image:hover{
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px; 
+}
 .single-image:hover img {
   transform: scale(1.1); /* Scale the image by 10% on hover */
+  
 }
 
 /* Media query for screens smaller than 500px */

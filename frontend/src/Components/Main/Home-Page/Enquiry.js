@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../../axiosInstance';
 import '../Main.css';
-
+import Swal from 'sweetalert2'
 import { FaArrowRight } from 'react-icons/fa';
 import { CiUser, CiMail, CiPhone } from 'react-icons/ci';
 import { RiMessage2Line } from 'react-icons/ri';
@@ -38,9 +38,11 @@ const Enquiry = () => {
       }
 
       const result = response.data;
+      Swal.fire("Enquiry Submitted Successfully.");
       console.log('Success response:', result);
 
-      alert('Enquiry submitted successfully');
+    
+
       setFormData({
         name: '',
         email: '',
@@ -49,7 +51,12 @@ const Enquiry = () => {
       });
     } catch (error) {
       console.error('Error submitting enquiry:', error);
-      alert('Failed to submit enquiry. Please try again.');
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        // color: "#df3946",
+        text: "Something went wrong!",
+      });
     }
   };
 
