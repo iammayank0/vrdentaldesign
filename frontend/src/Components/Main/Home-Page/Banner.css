@@ -14,3 +14,33 @@
     object-fit: cover; 
     z-index: -1; 
   }
+
+  /* @media (max-width: 870px) {
+    .banner-video {
+      width: 100%;
+      height: auto;
+      min-width: 100%;
+      min-height: 100vh;
+    }
+  }
+
+  @media (max-width: 570px) {
+    .banner-video {
+      width: 100%;
+      height: auto;
+      min-height: 100vh;
+    }
+  } */
+
+
+  @media (max-width: 500px) {
+    .banner-video {
+      width: 100%;
+      height: auto; 
+      object-fit: contain;
+    }
+
+    .banner-container {
+      height: 25rem; 
+    }
+  }

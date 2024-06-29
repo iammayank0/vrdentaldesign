@@ -55,15 +55,6 @@
   font-size: 24px; 
 }
 
-.main-banner {
-  width: 100%;
-  height: auto; 
-  padding-right: .75rem;
-  padding-left: .75rem;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 .text {
   max-width: 640px;
   overflow: hidden;
@@ -172,8 +163,13 @@
   margin-right: auto;
   margin-left: auto;
   z-index: 1;
-  padding-top: 10rem;
 }
+
+/* @media (max-width: 580px) {
+  .container {
+    margin-top: -10rem;
+  }
+} */
 
 
 .content {
@@ -531,60 +527,60 @@ input[type="text"], input[type="email"], input[type="number"] {
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
   .container-about {
-    flex-direction: column; /* Your styles for container-about here */
+    flex-direction: column; 
     padding-top: 20px;
   }
 
   .content-image {
     width: 100%;
-    height: auto;  /* Your styles for slider-image here */
+    height: auto;
   }
 
   .about-content {
     padding-left: 0;
-    text-align: center;/* Your styles for about-content here */
+    text-align: center;
     padding: 20px 
   }
 
   .content-list {
-    grid-template-columns: 1fr; /* Your styles for content-list here */
+    grid-template-columns: 1fr; 
   }
 
   .fact-text h2 {
-    font-size: 32px;/* Your styles for fact-text h2 here */
+    font-size: 32px;
   }
 
   .fact-num h3 {
-    font-size: 28px; /* Your styles for fact-num h3 here */
+    font-size: 28px; 
   }
 }
 
-/* For screens larger than 768px */
+
 @media screen and (min-width: 1024px) and (max-width: 1250px) {
   .container-about {
-    flex-direction: column; /* Your styles for container-about here */
+    flex-direction: column;
   }
 
   .content-image {
     width: 100%;
-    height: auto;  /* Your styles for slider-image here */
+    height: auto; 
   }
 
   .about-content {
     padding-left: 0;
-    text-align: center;/* Your styles for about-content here */
+    text-align: center;
   }
 
   .content-list {
-    grid-template-columns: 1fr; /* Your styles for content-list here */
+    grid-template-columns: 1fr; 
   }
 
   .fact-text h2 {
-    font-size: 32px;/* Your styles for fact-text h2 here */
+    font-size: 32px;
   }
 
   .fact-num h3 {
-    font-size: 28px; /* Your styles for fact-num h3 here */
+    font-size: 28px; 
   }
 }
 
