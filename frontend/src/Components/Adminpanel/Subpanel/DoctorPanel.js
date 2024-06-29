@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import './Panel.css';
@@ -16,7 +16,7 @@ const DoctorPanel = () => {
 
   const fetchDoctors = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/doctors');
+      const response = await axiosInstance.get('/doctors');
       setDoctors(response.data);
     } catch (error) {
       console.error('Error fetching doctors:', error);
@@ -49,7 +49,7 @@ const DoctorPanel = () => {
     formData.append('instagram', newDoctor.socialLinks.instagram);
 
     try {
-      await axios.post('http://localhost:5000/api/doctors/upload', formData, {
+      await axiosInstance.post('/doctors/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -80,7 +80,7 @@ const DoctorPanel = () => {
     formData.append('instagram', newDoctor.socialLinks.instagram);
 
     try {
-      await axios.put(`http://localhost:5000/api/doctors/${editingDoctor._id}`, formData, {
+      await axiosInstance.put(`/doctors/${editingDoctor._id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -95,7 +95,7 @@ const DoctorPanel = () => {
 
   const handleDeleteDoctor = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/doctors/${id}`);
+      await axiosInstance.delete(`/doctors/${id}`);
       fetchDoctors();
     } catch (error) {
       console.error('Error deleting doctor:', error);
@@ -115,6 +115,13 @@ const DoctorPanel = () => {
                             to="/admin/nav-panel"
                           >
                             Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/banner"
+                          >
+                            Banner <div className="arrow-icn"><FaArrowRight /></div>
                           </Link>
                         </li>
                         <li>

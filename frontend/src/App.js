@@ -39,6 +39,11 @@ import CTAPanel from './Components/Adminpanel/Subpanel/CTApanel';
 import PartnerPanel from './Components/Adminpanel/Subpanel/PartnerPanel';
 import BlogPanel from './Components/Adminpanel/Subpanel/BlogPanel';
 import FooterPanel from './Components/Adminpanel/Subpanel/FooterPanel';
+import AboutPagePanel from './Components/Adminpanel/PagePanels/AboutPagePanel';
+import GalleryPanel from './Components/Adminpanel/PagePanels/GalleryPanel';
+import ServicePagePanel from './Components/Adminpanel/PagePanels/ServicePagePanel';
+import BannerPanel from './Components/Adminpanel/Subpanel/BannerPanel';
+import MapVideoPanel from './Components/Adminpanel/PagePanels/MapVideoPanel'
 
 
 const App = () => {
@@ -201,9 +206,11 @@ const App = () => {
        <Route exact path='/admin/partners' element={loggedIn ? <PartnerPanel/> : <Navigate to="/login" />}/>
        <Route exact path='/admin/blog' element={loggedIn ? <BlogPanel/> : <Navigate to="/login" />}/>
        <Route exact path='/admin/footer' element={loggedIn ?<FooterPanel/> : <Navigate to="/login" />}/>
-       {/* <Route exact path='/admin/nav-panel' element={<NavPanel/>} />
-       <Route exact path='/admin/nav-panel' element={<NavPanel/>} /> */}
-
+       <Route exact path='/admin/about-page' element={loggedIn ?<AboutPagePanel/> : <Navigate to="/login" />}/>
+       <Route exact path='/admin/gallery' element={loggedIn ?<GalleryPanel/> : <Navigate to="/login" />}/>
+       <Route exact path='/admin/Service-page' element={loggedIn ?<ServicePagePanel/> : <Navigate to="/login" />}/>
+       <Route exact path='/admin/banner' element={loggedIn ?<BannerPanel/> : <Navigate to="/login" />}/>
+       <Route exact path='/admin/ContactUs' element={loggedIn ?<MapVideoPanel/> : <Navigate to="/login" />}/>
           
       </Routes>
     </Router>

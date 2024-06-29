@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import './Panel.css';
+import ServiceVideoPanel from './ServiceVideoPanel';
 
 const ServicePanel = () => {
   const [serviceContents, setServiceContents] = useState([]);
@@ -26,7 +27,7 @@ const ServicePanel = () => {
 
   const fetchServiceContents = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/services');
+      const response = await axiosInstance.get('/services');
       setServiceContents(response.data);
       if (response.data.length > 0) {
         const firstService = response.data[0];
@@ -53,9 +54,9 @@ const ServicePanel = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.files[0] });
-  };
+  // const handleFileChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+  // };
 
   const handleFormSubmit = async (e, service) => {
     e.preventDefault();
@@ -95,7 +96,7 @@ const ServicePanel = () => {
         formDataToSend.append('img4', formData.img4);
       }
 
-      const response = await axios.put(`http://localhost:5000/api/services/${service._id}`, formDataToSend, {
+      const response = await axiosInstance.put(`/services/${service._id}`, formDataToSend, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'multipart/form-data',
@@ -126,6 +127,13 @@ const ServicePanel = () => {
                             to="/admin/nav-panel"
                           >
                             Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/banner"
+                          >
+                            Banner <div className="arrow-icn"><FaArrowRight /></div>
                           </Link>
                         </li>
                         <li>
@@ -202,26 +210,7 @@ const ServicePanel = () => {
       {serviceContents.map((service) => (
         <div key={service._id} className="service">
           <form className="admin-form" onSubmit={(e) => handleFormSubmit(e, service)}>
-            <div>
-              <label htmlFor="img1">Image 1:</label>
-              <input type="file" name="img1" onChange={handleFileChange} accept="image/*" />
-              <input type="text" name="img1Title" value={formData.img1Title} onChange={handleChange} placeholder="Image 1 Title" />
-            </div>
-            <div>
-              <label htmlFor="img2">Image 2:</label>
-              <input type="file" name="img2" onChange={handleFileChange} accept="image/*" />
-              <input type="text" name="img2Title" value={formData.img2Title} onChange={handleChange} placeholder="Image 2 Title" />
-            </div>
-            <div>
-              <label htmlFor="img3">Image 3:</label>
-              <input type="file" name="img3" onChange={handleFileChange} accept="image/*" />
-              <input type="text" name="img3Title" value={formData.img3Title} onChange={handleChange} placeholder="Image 3 Title" />
-            </div>
-            <div>
-              <label htmlFor="img4">Image 4:</label>
-              <input type="file" name="img4" onChange={handleFileChange} accept="image/*" />
-              <input type="text" name="img4Title" value={formData.img4Title} onChange={handleChange} placeholder="Image 4 Title" />
-            </div>
+            
             <div>
               <label htmlFor="subTitle">Sub Title:</label>
               <input type="text" name="subTitle" value={formData.subTitle} onChange={handleChange} placeholder="Sub Title" />
@@ -238,6 +227,9 @@ const ServicePanel = () => {
           </form>
         </div>
       ))}
+      <div className="servic-video-panel">
+        <ServiceVideoPanel />
+      </div>
     </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from '../../../../axiosInstance';
 import "./SingleService.css";
 import Navbar from "../../../Navbar/Navbar";
 import { Link } from "react-router-dom";
@@ -15,7 +15,7 @@ const InlayOnlay = () => {
   useEffect(() => {
     const fetchBackgroundImage = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/servicebg');
+        const response = await axiosInstance.get('/servicebg');
         setBackgroundImage(response.data.length > 0 ? response.data[0].BackgroundImage : '');
       } catch (error) {
         console.error('Failed to fetch about background image:', error);
@@ -24,10 +24,10 @@ const InlayOnlay = () => {
 
     const fetchServices = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/single-services'); 
+        const response = await axiosInstance.get('/single-services'); 
         setServices(response.data);
         // Set the second service separately for use in rendering
-        if (response.data.length > 12) {
+        if (response.data.length > 1) {
           setservice(response.data[2]);
         }
       } catch (error) {

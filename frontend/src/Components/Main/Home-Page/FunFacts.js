@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import '../Main.css';
 
 const FunFacts = () => {
@@ -9,7 +9,7 @@ const FunFacts = () => {
     useEffect(() => {
         const fetchFunFacts = async () => {
           try {
-            const response = await axios.get('http://localhost:5000/api/fun-facts');
+            const response = await axiosInstance.get('/fun-facts');
             setFunFacts(response.data);
           } catch (error) {
             console.error('Error fetching fun facts:', error);

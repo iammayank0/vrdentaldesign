@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import "./ServicePage.css";
 import Navbar from '../../Navbar/Navbar';
 import Footer from '../../Footer/Footer';
@@ -15,7 +15,7 @@ const ServicePage = () => {
   useEffect(() => {
     const fetchBackgroundImage = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/servicebg');
+        const response = await axiosInstance.get('/servicebg');
         setBackgroundImage(response.data.length > 0 ? response.data[0].BackgroundImage : '');
       } catch (error) {
         console.error('Failed to fetch about background image:', error);
@@ -24,7 +24,7 @@ const ServicePage = () => {
 
     const fetchServices = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/single-services'); 
+        const response = await axiosInstance.get('/single-services');
         setServices(response.data);
       } catch (error) {
         console.error('Error fetching services:', error);

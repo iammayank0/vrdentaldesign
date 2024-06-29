@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from '../../../../axiosInstance';
 import "../BlogPage.css";
 import Navbar from "../../../Navbar/Navbar";
 import { Link } from "react-router-dom";
@@ -15,7 +15,7 @@ const ThirdBlogPage = () => {
   useEffect(() => {
     const fetchBackgroundImage = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/servicebg");
+        const response = await axiosInstance.get('/servicebg');
         setBackgroundImage(
           response.data.length > 0 ? response.data[0].BackgroundImage : ""
         );
@@ -26,7 +26,7 @@ const ThirdBlogPage = () => {
 
     const fetchBlogData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/blogs");
+        const response = await axiosInstance.get('/blogs');
         if (response.data.length > 0) {
           setBlog(response.data[2]);
         }

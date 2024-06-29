@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import './Panel.css';
@@ -10,7 +10,7 @@ const FactPanel = () => {
   useEffect(() => {
     const fetchFunFacts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/fun-facts');
+        const response = await axiosInstance.get('/fun-facts');
         setFunFacts(response.data);
       } catch (error) {
         console.error('Error fetching fun facts:', error);
@@ -29,7 +29,7 @@ const FactPanel = () => {
 
   const handleSubmit = async (index) => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/fun-facts/${funFacts[index]._id}`, funFacts[index]);
+      const response = await axiosInstance.put(`/fun-facts/${funFacts[index]._id}`, funFacts[index]);
       if (response.status === 200) {
         console.log('Fun fact updated successfully');
       } else {
@@ -53,6 +53,13 @@ const FactPanel = () => {
                             to="/admin/nav-panel"
                           >
                             Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/banner"
+                          >
+                            Banner <div className="arrow-icn"><FaArrowRight /></div>
                           </Link>
                         </li>
                         <li>

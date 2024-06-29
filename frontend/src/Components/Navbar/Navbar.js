@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axiosInstance from '../../axiosInstance';
 import './Navbar.css';
 import { FaPhone } from 'react-icons/fa';
 import { SiMinutemailer } from 'react-icons/si';
@@ -32,21 +33,16 @@ const Navbar = () => {
     const fetchData = async () => {
       try {
         const [navbarItemsResponse, contactInfoResponse, socialLinksResponse, logoResponse] = await Promise.all([
-          fetch('http://localhost:5000/api/navbar'),
-          fetch('http://localhost:5000/api/contact-info'),
-          fetch('http://localhost:5000/api/social-links'),
-          fetch('http://localhost:5000/api/logo')
+          axiosInstance.get('/navbar'),
+          axiosInstance.get('/contact-info'),
+          axiosInstance.get('/social-links'),
+          axiosInstance.get('/logo')
         ]);
 
-        const navbarItemsData = await navbarItemsResponse.json();
-        const contactInfoData = await contactInfoResponse.json();
-        const socialLinksData = await socialLinksResponse.json();
-        const logoData = await logoResponse.json();
-
-        setNavbarItems(navbarItemsData);
-        setContactInfo(contactInfoData);
-        setSocialLinks(socialLinksData);
-        setLogoUrl(logoData.logoUrl);
+        setNavbarItems(navbarItemsResponse.data);
+        setContactInfo(contactInfoResponse.data);
+        setSocialLinks(socialLinksResponse.data);
+        setLogoUrl(logoResponse.data.logoUrl);
       } catch (error) {
         console.error('Error fetching data:', error);
         setError('Error loading data');

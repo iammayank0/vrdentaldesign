@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import Navbar from '../../Navbar/Navbar';
 import Footer from "../../Footer/Footer";
 import Blog from '../../Main/Home-Page/Blog'
@@ -12,7 +12,7 @@ const BlogPage = () => {
     useEffect(() => {
         const fetchBackgroundImage = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/gallerybg');
+                const response = await axiosInstance.get('/gallerybg');
                 if (response.data && response.data.length > 0) {
                     setBackgroundImage(response.data[0].BackgroundImage);
                 } else {

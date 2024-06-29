@@ -1,23 +1,42 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from '../../../axiosInstance';
 import "../Main.css";
-import ServiceVideo from "../../../Assets/service.mp4"
 
 import { FaArrowRight } from "react-icons/fa";
 
 const Services = () => {
   const [serviceContents, setServiceContents] = useState([]);
+  const [serviceUrl, setServiceUrl] = useState('');
+  const [error, setError] = useState(null);
+
+  const handleVideoError = (e) => {
+    console.error("Error loading video", e);
+    setError("Failed to load video");
+  };
+
 
   useEffect(() => {
     const fetchServiceContents = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/services");
+        const response = await axiosInstance.get('/services');
         setServiceContents(response.data);
       } catch (error) {
         console.error("Error fetching service contents:", error);
       }
     };
+    const fetchServiceVideo = async () => {
+      try {
+        const response = await axiosInstance.get('/service-video');
+        if (response.data.length > 0) {
+          setServiceUrl(response.data[0].Video);
+        }
+      } catch (error) {
+        console.error('Failed to fetch service video:', error);
+        setError("Failed to fetch service video");
+      }
+    };
 
+    fetchServiceVideo();
     fetchServiceContents();
   }, []);
 
@@ -51,16 +70,14 @@ const Services = () => {
               </div>
             ))}
             <div className="services-video">
-              <video
-                className="service-video"
-                autoPlay
-                loop
-                muted
-                playsInline
-              >
-                <source src={ServiceVideo} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+            {serviceUrl ? (
+        <video className="service-video" autoPlay loop muted playsInline onError={handleVideoError}>
+          <source src={serviceUrl} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      ) : (
+        <p>{error ? error : "Loading..."}</p>
+      )}
             </div>
           </div>
         </div>

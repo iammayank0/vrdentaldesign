@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../../axiosInstance';
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 
@@ -32,7 +32,7 @@ const BlogPanel = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/blogs');
+      const response = await axiosInstance.get('/blogs');
       setBlogs(response.data);
     } catch (error) {
       console.error('Error fetching blogs:', error);
@@ -41,7 +41,7 @@ const BlogPanel = () => {
 
   const fetchBlogTexts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/blog-texts');
+      const response = await axiosInstance.get('/blog-texts');
       setBlogTexts(response.data);
     } catch (error) {
       console.error('Error fetching blog texts:', error);
@@ -61,7 +61,7 @@ const BlogPanel = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/api/blog/upload', formData, {
+      const response = await axiosInstance.post('/blog/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setBlogs([...blogs, response.data]);
@@ -90,7 +90,7 @@ const BlogPanel = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/blog/${selectedBlogId}`, formData, {
+      const response = await axiosInstance.put(`/blog/${selectedBlogId}`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       const updatedBlogs = blogs.map(blog => (blog._id === selectedBlogId ? response.data : blog));
@@ -110,7 +110,7 @@ const BlogPanel = () => {
 
   const handleBlogDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/blog/${id}`);
+      await axiosInstance.delete(`/blog/${id}`);
       const updatedBlogs = blogs.filter(blog => blog._id !== id);
       setBlogs(updatedBlogs);
     } catch (error) {
@@ -125,7 +125,7 @@ const BlogPanel = () => {
         heading: editBlogTextHeading,
         description: editBlogTextDescription,
       };
-      const response = await axios.put(`http://localhost:5000/api/blog-text/${selectedBlogTextId}`, updates);
+      const response = await axiosInstance.put(`/blog-text/${selectedBlogTextId}`, updates);
       const updatedBlogTexts = blogTexts.map(blogText => (blogText._id === selectedBlogTextId ? response.data : blogText));
       setBlogTexts(updatedBlogTexts);
       setSelectedBlogTextId(null);
@@ -178,6 +178,13 @@ const BlogPanel = () => {
                             to="/admin/nav-panel"
                           >
                             Navbar <div className="arrow-icn"><FaArrowRight /></div>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/admin/banner"
+                          >
+                            Banner <div className="arrow-icn"><FaArrowRight /></div>
                           </Link>
                         </li>
                         <li>
