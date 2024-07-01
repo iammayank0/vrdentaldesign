@@ -48,8 +48,8 @@ router.post('/submit', asyncHandler(async (req, res) => {
 
   // Send email with enquiry details
   const mailOptions = {
-    from: process.env.SMPT_MAIL, // sender address
-    to: 'recipient@example.com', // list of receivers
+    from: process.env.SMPT_MAIL, 
+    to: 'mk9643942242@gmail.com', // replace with your actual email address
     subject: 'New Enquiry Submission',
     text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${sanitizedMessage}`
   };
