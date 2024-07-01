@@ -290,12 +290,12 @@ li {
 
   .main-nav {
     grid-template-columns: 22rem 0.4fr 2fr 21rem;
-    height: 5rem;
+    height: 8rem;
   }
 
   .logo img {
     width: 9rem; 
-    height: 4.5rem; 
+    height: 6.5rem; 
   }
 
   .menu-link {
