@@ -6,6 +6,8 @@ import '../Main.css';
 
 const FunFacts = () => {
     const [funFacts, setFunFacts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const { ref, inView } = useInView({
         triggerOnce: true, // Trigger animation only once
         threshold: 0.1, // Percentage of element visibility required to trigger
@@ -16,13 +18,23 @@ const FunFacts = () => {
             try {
                 const response = await axiosInstance.get('/fun-facts');
                 setFunFacts(response.data);
+                setLoading(false);
             } catch (error) {
-                console.error('Error fetching fun facts:', error);
+                setError('Error fetching fun facts');
+                setLoading(false);
             }
         };
 
         fetchFunFacts();
     }, []);
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>{error}</p>;
+    }
 
     return (
         <div>
@@ -40,7 +52,7 @@ const FunFacts = () => {
                                     <h3>
                                         <span className="digit">
                                             {inView && (
-                                                <CountUp start={0} end={fact.number} duration={2.5} />
+                                                <CountUp start={0} end={fact.number} duration={10} />
                                             )}
                                         </span>
                                         <sup>+</sup>

@@ -1,0 +1,18 @@
+[
+    {
+      "Namespace": "aws:elasticbeanstalk:environment",
+      "OptionName": "EnvironmentType",
+      "Value": "SingleInstance"
+    },
+    {
+      "Namespace": "aws:elasticbeanstalk:environment",
+      "OptionName": "ServiceRole",
+      "Value": "aws-elasticbeanstalk-service-role"
+    },
+    {
+      "Namespace": "aws:elasticbeanstalk:application:environment",
+      "OptionName": "PORT",
+      "Value": "5000"
+    }
+  ]
+  

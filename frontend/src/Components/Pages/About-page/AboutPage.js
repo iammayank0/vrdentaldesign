@@ -82,7 +82,7 @@ const AboutPage = () => {
           </div>
         </div>
       </div>
-      <section className='about-area'>
+      <section className='about-page-area'>
         <div>
           <About />
         </div>
